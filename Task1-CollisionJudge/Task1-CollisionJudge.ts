@@ -1,9 +1,13 @@
 console.log('Task1-CollisionJudge')
-
-// InputFunc
-const rl: any = require('readline').createInterface(process.stdin, process.stdout)
-const input = (): any => new Promise(r => rl.once('line', r))
 ;(async () => {
+  // InputFunc
+  const rl: any = require('readline').createInterface(process.stdin, process.stdout)
+  const input = (): any => new Promise(r => rl.once('line', r))
+
+  // CreatFunc
+  const range = (n: number): number[] => Array.from({length: n}, (_, i) => i)
+  const splitInNumber = (s: string): number[] => s.split(' ').map((n: string) => Number(n))
+
   // CreatType
   type Rect = {
     x: number
@@ -11,10 +15,6 @@ const input = (): any => new Promise(r => rl.once('line', r))
     width: number
     height: number
   }
-
-  // CreatFunc
-  const range = (n: number): number[] => Array.from({length: n}, (_, i) => i)
-  const splitInNumber = (s: string): number[] => s.split(' ').map((n: string) => Number(n))
 
   // SelfAircraft
   const s_raw: number[] = splitInNumber(await input())

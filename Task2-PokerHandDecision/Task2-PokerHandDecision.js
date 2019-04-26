@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var _this = this;
-console.log('Task1-CollisionJudge');
+console.log('Task2-PokerHandDecision');
 (function () { return __awaiter(_this, void 0, void 0, function () {
     var rl, input, range, splitInNumber, s_raw, _a, self, N, _b, enemy, _c, _d, _i, _, e_raw, _e;
     return __generator(this, function (_f) {
