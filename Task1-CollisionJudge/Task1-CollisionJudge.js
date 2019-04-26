@@ -35,46 +35,50 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 var _this = this;
-console.log('1-1task');
+console.log('Task1-CollisionJudge');
 var rl = require('readline').createInterface(process.stdin, process.stdout);
 var input = function () { return new Promise(function (r) { return rl.once('line', r); }); };
-var range = function (n) { return Array.from({ length: n }, function (_, i) { return i; }); };
 (function () { return __awaiter(_this, void 0, void 0, function () {
-    var s_raw, self, N, _a, enemy, _b, _c, _i, _, e_raw;
-    return __generator(this, function (_d) {
-        switch (_d.label) {
-            case 0: return [4, input()];
+    var range, splitInNumber, s_raw, _a, self, N, _b, enemy, _c, _d, _i, _, e_raw, _e;
+    return __generator(this, function (_f) {
+        switch (_f.label) {
+            case 0:
+                range = function (n) { return Array.from({ length: n }, function (_, i) { return i; }); };
+                splitInNumber = function (s) { return s.split(' ').map(function (n) { return Number(n); }); };
+                _a = splitInNumber;
+                return [4, input()];
             case 1:
-                s_raw = (_d.sent()).split(' ').map(function (n) { return Number(n); });
+                s_raw = _a.apply(void 0, [_f.sent()]);
                 self = {
                     x: s_raw[0],
                     y: s_raw[1],
                     width: s_raw[2],
                     height: s_raw[3],
                 };
-                _a = Number;
+                _b = Number;
                 return [4, input()];
             case 2:
-                N = _a.apply(void 0, [_d.sent()]);
+                N = _b.apply(void 0, [_f.sent()]);
                 enemy = [];
-                _b = [];
-                for (_c in range(N))
-                    _b.push(_c);
+                _c = [];
+                for (_d in range(N))
+                    _c.push(_d);
                 _i = 0;
-                _d.label = 3;
+                _f.label = 3;
             case 3:
-                if (!(_i < _b.length)) return [3, 6];
-                _ = _b[_i];
+                if (!(_i < _c.length)) return [3, 6];
+                _ = _c[_i];
+                _e = splitInNumber;
                 return [4, input()];
             case 4:
-                e_raw = (_d.sent()).split(' ').map(function (n) { return Number(n); });
+                e_raw = _e.apply(void 0, [_f.sent()]);
                 enemy.push({
                     x: e_raw[0],
                     y: e_raw[1],
                     width: e_raw[2],
                     height: e_raw[3],
                 });
-                _d.label = 5;
+                _f.label = 5;
             case 5:
                 _i++;
                 return [3, 3];
