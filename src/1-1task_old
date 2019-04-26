@@ -1,0 +1,74 @@
+console.log('1-1task.ts')
+
+const rl: any = require('readline').createInterface(process.stdin, process.stdout)
+const input = (): any => new Promise(r => rl.once('line', r))
+const range = (n: number): number[] => Array.from({length: n}, (_, i) => i)
+;(async () => {
+  const friend: number[] = (await input()).split(' ').map((n: string) => Number(n))
+
+  const N: number = Number(await input())
+  const enemy: number[][] = []
+  for (const _ in range(N)) {
+    enemy.push((await input()).split(' ').map((n: string) => Number(n)))
+  }
+
+  type Coordinate = {x: number; y: number}
+
+  const f_tl: Coordinate = {
+    x: friend[0],
+    y: friend[1],
+  }
+  const f_tr: Coordinate = {
+    x: f_tl.x + friend[2],
+    y: f_tl.y,
+  }
+  const f_bl: Coordinate = {
+    x: f_tl.x,
+    y: f_tl.y + friend[3],
+  }
+  const f_br: Coordinate = {
+    x: f_tr.x,
+    y: f_bl.y,
+  }
+
+  const e_tl: Coordinate[] = []
+  const e_tr: Coordinate[] = []
+  const e_bl: Coordinate[] = []
+  const e_br: Coordinate[] = []
+  for (const i in range(N)) {
+    e_tl.push({
+      x: enemy[i][0],
+      y: enemy[i][1],
+    })
+    e_tr.push({
+      x: e_tl[i].x + enemy[i][2],
+      y: e_tl[i].y,
+    })
+    e_bl.push({
+      x: e_tl[i].x,
+      y: e_tl[i].y + enemy[i][3],
+    })
+    e_br.push({
+      x: e_tr[i].x,
+      y: e_bl[i].y,
+    })
+  }
+
+  const judge_tl = (i: number): boolean =>
+    f_tl.x < e_tl[i].x && e_tl[i].x < f_br.x && (f_tl.y < e_tl[i].y && e_tl[i].y < f_br.y)
+  const judge_tr = (i: number): boolean =>
+    f_bl.x < e_tr[i].x && e_tr[i].x < f_tr.x && (f_bl.y > e_tr[i].y && e_tr[i].y > f_tr.y)
+  const judge_bl = (i: number): boolean =>
+    f_bl.x < e_bl[i].x && e_bl[i].x < f_tr.x && (f_bl.y > e_bl[i].y && e_bl[i].y > f_tr.y)
+  const judge_br = (i: number): boolean =>
+    f_tl.x < e_br[i].x && e_br[i].x < f_br.x && (f_tl.y < e_br[i].y && e_br[i].y < f_br.y)
+
+  for (const e in range(N)) {
+    const i: number = Number(e)
+    if (judge_tl(i) || judge_tr(i) || judge_bl(i) || judge_br(i)) {
+      console.log(`敵機${i + 1}が当たり`)
+    }
+  }
+
+  process.exit()
+})()
