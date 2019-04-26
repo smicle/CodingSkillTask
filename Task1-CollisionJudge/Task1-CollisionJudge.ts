@@ -1,9 +1,10 @@
-console.log('1-1task')
+console.log('Task1-CollisionJudge')
 
+// InputFunc
 const rl: any = require('readline').createInterface(process.stdin, process.stdout)
 const input = (): any => new Promise(r => rl.once('line', r))
-const range = (n: number): number[] => Array.from({length: n}, (_, i) => i)
 ;(async () => {
+  // CreatType
   type Rect = {
     x: number
     y: number
@@ -11,7 +12,12 @@ const range = (n: number): number[] => Array.from({length: n}, (_, i) => i)
     height: number
   }
 
-  const s_raw: number[] = (await input()).split(' ').map((n: string) => Number(n))
+  // CreatFunc
+  const range = (n: number): number[] => Array.from({length: n}, (_, i) => i)
+  const splitInNumber = (s: string): number[] => s.split(' ').map((n: string) => Number(n))
+
+  // SelfAircraft
+  const s_raw: number[] = splitInNumber(await input())
   const self: Rect = {
     x: s_raw[0],
     y: s_raw[1],
@@ -19,11 +25,13 @@ const range = (n: number): number[] => Array.from({length: n}, (_, i) => i)
     height: s_raw[3],
   }
 
+  // EnemyNumber
   const N: number = Number(await input())
 
+  // EnemyAircraft
   const enemy: Rect[] = []
   for (const _ in range(N)) {
-    const e_raw: number[] = (await input()).split(' ').map((n: string) => Number(n))
+    const e_raw: number[] = splitInNumber(await input())
     enemy.push({
       x: e_raw[0],
       y: e_raw[1],
@@ -32,6 +40,7 @@ const range = (n: number): number[] => Array.from({length: n}, (_, i) => i)
     })
   }
 
+  // CollisionJudge
   enemy.forEach((e, i) => {
     const judge_x: number = Math.abs(self.x - e.x)
     const judge_y: number = Math.abs(self.y - e.y)
@@ -46,7 +55,7 @@ const range = (n: number): number[] => Array.from({length: n}, (_, i) => i)
   process.exit()
 })()
 
-/*
+/* SampleCase
 100 100 70 100
 3
 50 60 100 50
