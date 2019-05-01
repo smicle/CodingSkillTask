@@ -7,8 +7,9 @@ var input = function (s) {
     return readlineSync.question(s);
 };
 var range = function (n) { return Array.from({ length: n }, function (_, i) { return i; }); };
-var splitInNumber = function (s) { return s.split(' ').map(function (n) { return Number(n); }); };
-var s_raw = splitInNumber(input());
+var s_raw = input()
+    .split(' ')
+    .map(function (n) { return Number(n); });
 var self = {
     x: s_raw[0],
     y: s_raw[1],
@@ -16,16 +17,17 @@ var self = {
     height: s_raw[3],
 };
 var N = Number(input());
-var enemy = [];
-for (var _ in range(N)) {
-    var e_raw = splitInNumber(input());
-    enemy.push({
-        x: e_raw[0],
-        y: e_raw[1],
-        width: e_raw[2],
-        height: e_raw[3],
-    });
-}
+var enemy = range(N).slice().map(function (_) {
+    return input()
+        .split(' ')
+        .map(function (n) { return Number(n); });
+})
+    .map(function (e) { return ({
+    x: e[0],
+    y: e[1],
+    width: e[2],
+    height: e[3],
+}); });
 enemy.forEach(function (e, i) {
     var judge_x = Math.abs(self.x - e.x);
     var judge_y = Math.abs(self.y - e.y);

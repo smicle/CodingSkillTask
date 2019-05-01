@@ -22,32 +22,28 @@ type Rect = {
 }
 
 // SelfAircraft
-const s_raw: number[] = input()
-  .split(' ')
-  .map((n: string) => Number(n))
+// prettier-ignore
+const s: number[] = input().split(' ').map((n: string) => Number(n))
 const self: Rect = {
-  x: s_raw[0],
-  y: s_raw[1],
-  width: s_raw[2],
-  height: s_raw[3],
+  x: s[0],
+  y: s[1],
+  width: s[2],
+  height: s[3],
 }
 
 // EnemyNumber
 const N: number = Number(input())
 
 // EnemyAircraft
-const enemy: Rect[] = []
-for (const _ in range(N)) {
-  const e_raw: number[] = input()
-    .split(' ')
-    .map((n: string) => Number(n))
-  enemy.push({
-    x: e_raw[0],
-    y: e_raw[1],
-    width: e_raw[2],
-    height: e_raw[3],
-  })
-}
+// prettier-ignore
+const enemy: Rect[] = [...range(N)]
+  .map(_ => input().split(' ').map((n: string) => Number(n)))
+  .map(e => ({
+    x: e[0],
+    y: e[1],
+    width: e[2],
+    height: e[3],
+  }))
 
 // CollisionJudge
 enemy.forEach((e, i) => {
