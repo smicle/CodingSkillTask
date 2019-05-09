@@ -12,4 +12,4 @@ var judge_hand_2p = HandRule_1.isHand(input_hand_2p);
 var output_hand_2p = HandIO_1.outputHand(input_hand_2p);
 console.log("1p\n" + judge_hand_1p.hand + "\n" + output_hand_1p + "\n");
 console.log("2p\n" + judge_hand_2p.hand + "\n" + output_hand_2p + "\n");
-HandBattle_1.victoryOutput([input_hand_1p, input_hand_2p], [judge_hand_1p.rank, judge_hand_2p.rank]);
+HandBattle_1.victoryOutput(input_hand_1p, input_hand_2p, judge_hand_1p.rank, judge_hand_2p.rank);

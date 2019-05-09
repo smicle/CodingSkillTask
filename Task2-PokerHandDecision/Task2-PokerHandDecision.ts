@@ -24,4 +24,4 @@ ${judge_hand_2p.hand}
 ${output_hand_2p}
 `)
 
-victoryOutput([input_hand_1p, input_hand_2p], [judge_hand_1p.rank, judge_hand_2p.rank])
+victoryOutput(input_hand_1p, input_hand_2p, judge_hand_1p.rank, judge_hand_2p.rank)

@@ -1,7 +1,6 @@
 import {InputCard} from './Type'
 
-export const victoryOutput = (c: InputCard[][], r: number[]) => {
-  const [r_1p, r_2p] = r
+export const victoryOutput = (c_1p: InputCard[], c_2p: InputCard[], r_1p: number, r_2p: number) => {
   if (r_1p > r_2p) {
     console.log('1p WIN!!!')
     return
@@ -10,13 +9,15 @@ export const victoryOutput = (c: InputCard[][], r: number[]) => {
     return
   }
 
-  const [c_1p, c_2p] = c.map(n =>
-    n
+  const getfirstHand = (c: InputCard[]): InputCard => {
+    const d: InputCard[] = c
       .map(v => ({suit: v.suit, number: v.number === 1 ? 14 : v.number}))
       .sort((a, b) => b.number - a.number)
-  )
-  const v_1p: InputCard = c_1p.filter(n => n === c_1p[0]).sort((a, b) => b.suit - a.suit)[0]
-  const v_2p: InputCard = c_2p.filter(n => n === c_2p[0]).sort((a, b) => b.suit - a.suit)[0]
+    return d.filter(n => n === d[0]).sort((a, b) => b.suit - a.suit)[0]
+  }
+
+  const v_1p: InputCard = getfirstHand(c_1p)
+  const v_2p: InputCard = getfirstHand(c_2p)
 
   if (v_1p.number > v_2p.number) {
     console.log('1p WIN!!!')
