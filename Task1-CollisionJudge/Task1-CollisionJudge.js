@@ -7,21 +7,16 @@ var input = function (s) {
     return readlineSync.question(s);
 };
 var range = function (n) { return Array.from({ length: n }, function (_, i) { return i; }); };
-var s_raw = input()
-    .split(' ')
-    .map(function (n) { return Number(n); });
+var s = input().split(' ').map(function (n) { return Number(n); });
 var self = {
-    x: s_raw[0],
-    y: s_raw[1],
-    width: s_raw[2],
-    height: s_raw[3],
+    x: s[0],
+    y: s[1],
+    width: s[2],
+    height: s[3],
 };
 var N = Number(input());
-var enemy = range(N).slice().map(function (_) {
-    return input()
-        .split(' ')
-        .map(function (n) { return Number(n); });
-})
+var enemy = range(N)
+    .map(function (_) { return input().split(' ').map(function (n) { return Number(n); }); })
     .map(function (e) { return ({
     x: e[0],
     y: e[1],

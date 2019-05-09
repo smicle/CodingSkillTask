@@ -36,7 +36,7 @@ const N: number = Number(input())
 
 // EnemyAircraft
 // prettier-ignore
-const enemy: Rect[] = [...range(N)]
+const enemy: Rect[] = range(N)
   .map(_ => input().split(' ').map((n: string) => Number(n)))
   .map(e => ({
     x: e[0],
