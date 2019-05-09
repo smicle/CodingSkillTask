@@ -15,6 +15,7 @@ const convertSuit = (n: number): string => {
       return ''
   }
 }
+
 const convertNumver = (n: number): string => {
   switch (n) {
     case 1:
@@ -29,6 +30,7 @@ const convertNumver = (n: number): string => {
       return String(n)
   }
 }
+
 const convertCard = (c: InputCard[]): OutputCard[] =>
   c.map(c => ({
     suit: convertSuit(c.suit),
@@ -42,6 +44,7 @@ export const inputHand = (): InputCard[] => range(5)
     suit: c[0],
     number: c[1],
   }))
+
 export const outputHand = (c: InputCard[]): string =>
   convertCard(c)
     .map(c => `${c.suit}:${c.number}`)
