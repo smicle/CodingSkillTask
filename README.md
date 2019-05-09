@@ -1,4 +1,4 @@
-# codingSkillTask
+# CodingSkillTask
 
 使用言語:TypeScript
 
