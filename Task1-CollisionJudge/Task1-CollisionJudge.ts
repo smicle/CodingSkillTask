@@ -1,19 +1,7 @@
-import * as readlineSync from 'readline-sync'
-console.log('Task1-CollisionJudge')
+console.log('Task1-Collisionis')
 
-/* SampleCase
-100 100 70 100
-3
-50 60 100 50
-10 120 100 50
-165 115 70 70
-*/
+import {input, range} from '../util/util'
 
-// CreatFunc
-const input = (s = ''): string => readlineSync.question(s)
-const range = (n: number): number[] => Array.from({length: n}, (_, i) => i)
-
-// CreatType
 type Rect = {
   x: number
   y: number
@@ -21,7 +9,6 @@ type Rect = {
   height: number
 }
 
-// SelfAircraft
 // prettier-ignore
 const s: number[] = input().split(' ').map((n: string) => Number(n))
 const self: Rect = {
@@ -31,12 +18,9 @@ const self: Rect = {
   height: s[3],
 }
 
-// EnemyNumber
-const N: number = Number(input())
-
-// EnemyAircraft
+const n: number = Number(input())
 // prettier-ignore
-const enemy: Rect[] = range(N)
+const enemy: Rect[] = range(n)
   .map(_ => input().split(' ').map((n: string) => Number(n)))
   .map(e => ({
     x: e[0],
@@ -45,13 +29,21 @@ const enemy: Rect[] = range(N)
     height: e[3],
   }))
 
-// CollisionJudge
 enemy.forEach((e, i) => {
-  const judge_x: number = Math.abs(self.x - e.x)
-  const judge_y: number = Math.abs(self.y - e.y)
-  const judge_width: number = self.width / 2 + e.width / 2
-  const judge_height: number = self.height / 2 + e.height / 2
-  if (judge_x < judge_width && judge_y < judge_height) {
+  const is_x: number = Math.abs(self.x - e.x)
+  const is_y: number = Math.abs(self.y - e.y)
+  const is_width: number = self.width / 2 + e.width / 2
+  const is_height: number = self.height / 2 + e.height / 2
+
+  if (is_x < is_width && is_y < is_height) {
     console.log(`敵機${i + 1}が当たり`)
   }
 })
+
+/* SampleCase
+100 100 70 100
+3
+50 60 100 50
+10 120 100 50
+165 115 70 70
+*/
