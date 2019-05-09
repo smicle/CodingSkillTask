@@ -1,17 +1,15 @@
 "use strict";
 exports.__esModule = true;
-console.log('Task2-PokerHandDecision');
-var rule_1 = require("./rule");
-var io_1 = require("./io");
-var input_hand = io_1.inputHand();
-var judge_hand = rule_1.isHand(input_hand);
-var output_hand = io_1.outputHand(input_hand);
-console.log(judge_hand);
-console.log(output_hand);
-/* SampleCase
-0 01
-3 06
-3 10
-3 01
-1 01
-*/
+console.log("Task2-PokerHandDecision\n");
+var HandRule_1 = require("./HandRule");
+var HandIO_1 = require("./HandIO");
+var HandBattle_1 = require("./HandBattle");
+var input_hand_1p = HandIO_1.randHand();
+var judge_hand_1p = HandRule_1.isHand(input_hand_1p);
+var output_hand_1p = HandIO_1.outputHand(input_hand_1p);
+var input_hand_2p = HandIO_1.randHand();
+var judge_hand_2p = HandRule_1.isHand(input_hand_2p);
+var output_hand_2p = HandIO_1.outputHand(input_hand_2p);
+console.log("1p\n" + judge_hand_1p.hand + "\n" + output_hand_1p + "\n");
+console.log("2p\n" + judge_hand_2p.hand + "\n" + output_hand_2p + "\n");
+HandBattle_1.victoryOutput([input_hand_1p, input_hand_2p], [judge_hand_1p.rank, judge_hand_2p.rank]);

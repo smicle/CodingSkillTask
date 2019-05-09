@@ -1,9 +1,9 @@
-import {InputCard as ic} from './type'
+import {InputCard as ic, PokerHand} from './Type'
 
 const duplicateNumber = (c: ic[], v: number): number =>
   c
     .map(n => n.number)
-    .map((n, _, a) => a.filter(m => m == n).length)
+    .map((n, _, a) => a.filter(m => m === n).length)
     .filter(n => n == v).length
 
 const isRoyal = (c: ic[]): boolean =>
@@ -32,16 +32,28 @@ const isTwoPair = (c: ic[]): boolean => duplicateNumber(c, 2) == 4
 
 const isOnePair = (c: ic[]): boolean => duplicateNumber(c, 2) == 2
 
-// prettier-ignore
-export const isHand = (c: ic[]): string => {
-  if (isRoyalFlush(c))    return 'Royal Flush'
-  if (isStraightFlush(c)) return 'Straight Flush'
-  if (isFourCard(c))      return 'Four Card'
-  if (isFullHouse(c))     return 'Full House'
-  if (isFlush(c))         return 'Flush'
-  if (isStraight(c))      return 'Straight'
-  if (isThreeCard(c))     return 'Three Card'
-  if (isTwoPair(c))       return 'Two Pair'
-  if (isOnePair(c))       return 'One Pair'
-  return 'High card'
+const handType: PokerHand[] = [
+  {rank: 9, hand: 'Royal Flush'},
+  {rank: 8, hand: 'Straight Flush'},
+  {rank: 7, hand: 'Four Card'},
+  {rank: 6, hand: 'Full House'},
+  {rank: 5, hand: 'Flush'},
+  {rank: 4, hand: 'Straight'},
+  {rank: 3, hand: 'Three Card'},
+  {rank: 2, hand: 'Two Pair'},
+  {rank: 1, hand: 'One Pair'},
+  {rank: 0, hand: 'High card'},
+]
+
+export const isHand = (c: ic[]): PokerHand => {
+  if (isRoyalFlush(c)) return handType[0]
+  if (isStraightFlush(c)) return handType[1]
+  if (isFourCard(c)) return handType[2]
+  if (isFullHouse(c)) return handType[3]
+  if (isFlush(c)) return handType[4]
+  if (isStraight(c)) return handType[5]
+  if (isThreeCard(c)) return handType[6]
+  if (isTwoPair(c)) return handType[7]
+  if (isOnePair(c)) return handType[8]
+  return handType[9]
 }

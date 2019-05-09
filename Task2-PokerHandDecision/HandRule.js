@@ -3,7 +3,7 @@ exports.__esModule = true;
 var duplicateNumber = function (c, v) {
     return c
         .map(function (n) { return n.number; })
-        .map(function (n, _, a) { return a.filter(function (m) { return m == n; }).length; })
+        .map(function (n, _, a) { return a.filter(function (m) { return m === n; }).length; })
         .filter(function (n) { return n == v; }).length;
 };
 var isRoyal = function (c) {
@@ -24,25 +24,36 @@ var isStraight = function (c) {
 var isThreeCard = function (c) { return duplicateNumber(c, 3) == 3; };
 var isTwoPair = function (c) { return duplicateNumber(c, 2) == 4; };
 var isOnePair = function (c) { return duplicateNumber(c, 2) == 2; };
-// prettier-ignore
+var handType = [
+    { rank: 9, hand: 'Royal Flush' },
+    { rank: 8, hand: 'Straight Flush' },
+    { rank: 7, hand: 'Four Card' },
+    { rank: 6, hand: 'Full House' },
+    { rank: 5, hand: 'Flush' },
+    { rank: 4, hand: 'Straight' },
+    { rank: 3, hand: 'Three Card' },
+    { rank: 2, hand: 'Two Pair' },
+    { rank: 1, hand: 'One Pair' },
+    { rank: 0, hand: 'High card' },
+];
 exports.isHand = function (c) {
     if (isRoyalFlush(c))
-        return 'Royal Flush';
+        return handType[0];
     if (isStraightFlush(c))
-        return 'Straight Flush';
+        return handType[1];
     if (isFourCard(c))
-        return 'Four Card';
+        return handType[2];
     if (isFullHouse(c))
-        return 'Full House';
+        return handType[3];
     if (isFlush(c))
-        return 'Flush';
+        return handType[4];
     if (isStraight(c))
-        return 'Straight';
+        return handType[5];
     if (isThreeCard(c))
-        return 'Three Card';
+        return handType[6];
     if (isTwoPair(c))
-        return 'Two Pair';
+        return handType[7];
     if (isOnePair(c))
-        return 'One Pair';
-    return 'High card';
+        return handType[8];
+    return handType[9];
 };
