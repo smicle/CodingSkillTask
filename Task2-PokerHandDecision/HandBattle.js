@@ -28,8 +28,7 @@ exports.victoryOutput = function (c_1p, c_2p, r_1p, r_2p) {
     if (v_1p.suit > v_2p.suit) {
         console.log('1p WIN!!!');
     }
-    else if (v_2p.suit > v_1p.suit) {
+    else {
         console.log('2p WIN!!!');
     }
-    console.log('DRAW');
 };

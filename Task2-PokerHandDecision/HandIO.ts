@@ -3,18 +3,26 @@ import {InputCard, OutputCard} from './Type'
 
 let s: number = 3
 let n: number = 1
-let trump: InputCard[] = range(52).map(_ => {
+let trump: InputCard[] = range(54).map(_ => {
   if (n === 14) {
     s--
     n = 1
   }
+
+  if (s === -1) {
+    return {
+      suit: 4,
+      number: 0,
+    }
+  }
+
   return {
     suit: s,
     number: n++,
   }
 })
 
-const convertSuit = (n: number): string => 'SHDC'[n]
+const convertSuit = (n: number): string => 'CDHSJ'[n]
 
 const convertNumver = (n: number): string => {
   switch (n) {
@@ -26,6 +34,8 @@ const convertNumver = (n: number): string => {
       return 'Q'
     case 11:
       return 'J'
+    case 0:
+      return '$'
     default:
       return String(n)
   }

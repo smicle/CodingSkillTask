@@ -29,9 +29,7 @@ export const victoryOutput = (c_1p: InputCard[], c_2p: InputCard[], r_1p: number
 
   if (v_1p.suit > v_2p.suit) {
     console.log('1p WIN!!!')
-  } else if (v_2p.suit > v_1p.suit) {
+  } else {
     console.log('2p WIN!!!')
   }
-
-  console.log('DRAW')
 }

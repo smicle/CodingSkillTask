@@ -3,17 +3,23 @@ exports.__esModule = true;
 var util_1 = require("../util/util");
 var s = 3;
 var n = 1;
-var trump = util_1.range(52).map(function (_) {
+var trump = util_1.range(54).map(function (_) {
     if (n === 14) {
         s--;
         n = 1;
+    }
+    if (s === -1) {
+        return {
+            suit: 4,
+            number: 0
+        };
     }
     return {
         suit: s,
         number: n++
     };
 });
-var convertSuit = function (n) { return 'SHDC'[n]; };
+var convertSuit = function (n) { return 'CDHSJ'[n]; };
 var convertNumver = function (n) {
     switch (n) {
         case 1:
@@ -24,6 +30,8 @@ var convertNumver = function (n) {
             return 'Q';
         case 11:
             return 'J';
+        case 0:
+            return '$';
         default:
             return String(n);
     }
