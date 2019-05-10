@@ -1,20 +1,19 @@
 "use strict";
 exports.__esModule = true;
 var util_1 = require("../util/util");
-var convertSuit = function (n) {
-    switch (n) {
-        case 3:
-            return 'S';
-        case 2:
-            return 'H';
-        case 1:
-            return 'D';
-        case 0:
-            return 'C';
-        default:
-            return '';
+var s = 3;
+var n = 1;
+var trump = util_1.range(52).map(function (_) {
+    if (n === 14) {
+        s--;
+        n = 1;
     }
-};
+    return {
+        suit: s,
+        number: n++
+    };
+});
+var convertSuit = function (n) { return 'SHDC'[n]; };
 var convertNumver = function (n) {
     switch (n) {
         case 1:
@@ -42,29 +41,41 @@ exports.inputHand = function () { return util_1.range(5)
     suit: c[0],
     number: c[1]
 }); }); };
+var cardExchange = function () {
+    var n = (Math.random() * trump.length) | 0;
+    var c = trump[n];
+    trump = trump.filter(function (v) { return v !== trump[n]; });
+    return c;
+};
+exports.randHand = function () { return util_1.range(5).map(cardExchange); };
 exports.outputHand = function (c) {
     return convertCard(c)
         .map(function (c) { return c.suit + ":" + c.number; })
         .join(' ');
 };
-var s = 3;
-var n = 1;
-var trump = util_1.range(52).map(function (_) {
-    if (n === 14) {
-        s--;
-        n = 1;
+exports.ABCDEPosition = function (c) {
+    return c.map(function (n, i) { return " " + 'ABCDE'[i] + " " + (n.number === 10 ? ' ' : ''); }).join(' ');
+};
+var convertABCDE = function (v) {
+    switch (v) {
+        case 'A':
+            return 0;
+        case 'B':
+            return 1;
+        case 'C':
+            return 2;
+        case 'D':
+            return 3;
+        case 'E':
+            return 4;
+        default:
+            return '';
     }
-    return {
-        suit: s,
-        number: n++
-    };
-});
-exports.randHand = function () {
-    var hand = util_1.range(5).map(function (_) {
-        var n = (Math.random() * trump.length) | 0;
-        var c = trump[n];
-        trump = trump.filter(function (v) { return v !== trump[n]; });
-        return c;
-    });
-    return hand;
+};
+exports.changeHand = function (c) {
+    var n = util_1.input('What to exchange?\n')
+        .toUpperCase()
+        .split('')
+        .map(function (v) { return Number(convertABCDE(v)); });
+    return c.map(function (v, i) { return (n.some(function (a) { return a === i; }) ? cardExchange() : v); });
 };

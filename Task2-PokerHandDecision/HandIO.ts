@@ -1,20 +1,20 @@
 import {input, range} from '../util/util'
 import {InputCard, OutputCard} from './Type'
 
-const convertSuit = (n: number): string => {
-  switch (n) {
-    case 3:
-      return 'S'
-    case 2:
-      return 'H'
-    case 1:
-      return 'D'
-    case 0:
-      return 'C'
-    default:
-      return ''
+let s: number = 3
+let n: number = 1
+let trump: InputCard[] = range(52).map(_ => {
+  if (n === 14) {
+    s--
+    n = 1
   }
-}
+  return {
+    suit: s,
+    number: n++,
+  }
+})
+
+const convertSuit = (n: number): string => 'SHDC'[n]
 
 const convertNumver = (n: number): string => {
   switch (n) {
@@ -45,30 +45,44 @@ export const inputHand = (): InputCard[] => range(5)
     number: c[1],
   }))
 
+const cardExchange = (): InputCard => {
+  const n: number = (Math.random() * trump.length) | 0
+  const c: InputCard = trump[n]
+  trump = trump.filter(v => v !== trump[n])
+  return c
+}
+
+export const randHand = (): InputCard[] => range(5).map(cardExchange)
+
 export const outputHand = (c: InputCard[]): string =>
   convertCard(c)
     .map(c => `${c.suit}:${c.number}`)
     .join(' ')
 
-let s: number = 3
-let n: number = 1
-let trump: InputCard[] = range(52).map(_ => {
-  if (n === 14) {
-    s--
-    n = 1
-  }
-  return {
-    suit: s,
-    number: n++,
-  }
-})
+export const ABCDEPosition = (c: InputCard[]): string =>
+  c.map((n, i) => ` ${'ABCDE'[i]} ${n.number === 10 ? ' ' : ''}`).join(' ')
 
-export const randHand = (): InputCard[] => {
-  const hand: InputCard[] = range(5).map(_ => {
-    const n: number = (Math.random() * trump.length) | 0
-    const c: InputCard = trump[n]
-    trump = trump.filter(v => v !== trump[n])
-    return c
-  })
-  return hand
+const convertABCDE = (v: string): number | string => {
+  switch (v) {
+    case 'A':
+      return 0
+    case 'B':
+      return 1
+    case 'C':
+      return 2
+    case 'D':
+      return 3
+    case 'E':
+      return 4
+    default:
+      return ''
+  }
+}
+
+export const changeHand = (c: InputCard[]): InputCard[] => {
+  const n: number[] = input('What to exchange?\n')
+    .toUpperCase()
+    .split('')
+    .map(v => Number(convertABCDE(v)))
+  return c.map((v, i) => (n.some(a => a === i) ? cardExchange() : v))
 }
