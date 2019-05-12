@@ -1,21 +1,14 @@
-import {input, range} from '../util/util'
+import {input, range} from '../../util/util'
 import {InputCard, OutputCard} from './Type'
 
-const createDeck = (): InputCard[] => {
+export const createDeck = (): InputCard[] => {
   let s: number = 3
   let n: number = 1
 
-  return range(54).map(_ => {
+  return range(52).map(_ => {
     if (n === 14) {
       s--
       n = 1
-    }
-
-    if (s === -1) {
-      return {
-        suit: 4,
-        number: 0,
-      }
     }
 
     return {
@@ -24,6 +17,7 @@ const createDeck = (): InputCard[] => {
     }
   })
 }
+// export const trumpInfo: InputCard[] = createDeck()
 let trumpDeck: InputCard[] = createDeck()
 
 const convertSuit = (n: number): string => 'CDHSJ'[n]
