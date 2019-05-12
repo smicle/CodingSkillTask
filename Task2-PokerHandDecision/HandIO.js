@@ -7,9 +7,8 @@ exports.createDeck = function () {
         number: (i % 13) + 1
     }); });
 };
-var trumpDeck = exports.createDeck();
-console.log(trumpDeck);
-var convertSuit = function (n) { return 'CDHSJ'[n]; };
+var deck = exports.createDeck();
+var convertSuit = function (n) { return 'SHDCJ'[n]; };
 // prettier-ignore
 var convertNumver = function (n) {
     return n === 0 ? '$' :
@@ -29,18 +28,18 @@ var convertCard = function (c) {
     }); });
 };
 var cardDraw = function () {
-    var n = (Math.random() * trumpDeck.length) | 0;
-    var c = trumpDeck[n];
-    trumpDeck = trumpDeck.filter(function (v) { return v !== trumpDeck[n]; });
+    var n = (Math.random() * deck.length) | 0;
+    var c = deck[n];
+    deck = deck.filter(function (v) { return v !== deck[n]; });
     return c;
 };
-exports.defaultHand = function () { return util_1.range(5).map(cardDraw); };
-exports.outputHand = function (c) {
+exports.initialHand = function () { return util_1.range(5).map(cardDraw); };
+exports.displayHand = function (c) {
     return convertCard(c)
         .map(function (c) { return c.suit + ":" + c.number; })
         .join(' ');
 };
-exports.ABCDEPosition = function (c) {
+exports.choicePosition = function (c) {
     return c.map(function (n, i) { return " " + 'ABCDE'[i] + " " + (n.number === 10 ? ' ' : ''); }).join(' ');
 };
 exports.changeHand = function (c) {
@@ -48,8 +47,8 @@ exports.changeHand = function (c) {
         .toUpperCase()
         .split('')
         .map(function (v) { return Number(convertABCDE(v)); });
-    // if (trumpDeck.slice(-1)[0].suit !== 4) {
-    //   trumpDeck.push({suit: 4, number: 0})
+    // if (deck.slice(-1)[0].suit !== 4) {
+    //   deck.push({suit: 4, number: 0})
     // }
     return c.map(function (v, i) { return (n.some(function (a) { return a === i; }) ? cardDraw() : v); });
 };

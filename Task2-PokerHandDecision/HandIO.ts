@@ -32,10 +32,7 @@ const convertCard = (c: HandCard[]): DisplayCard[] =>
 const cardDraw = (): HandCard => {
   const n: number = (Math.random() * deck.length) | 0
   const c: HandCard = deck[n]
-  console.log(deck)
   deck = deck.filter(v => v !== deck[n])
-  console.log(deck)
-  console.log('')
   return c
 }
 
