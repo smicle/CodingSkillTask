@@ -1,102 +1,63 @@
 import {input, range} from '../util/util'
-import {InputCard, OutputCard} from './Type'
+import {HandCard, DisplayCard} from './PokerType'
 
-const createDeck = (): InputCard[] => {
-  let s: number = 3
-  let n: number = 1
+export const createDeck = (): HandCard[] =>
+  range(52).map(i => ({
+    suit: (i / 13) | 0,
+    number: (i % 13) + 1,
+  }))
 
-  return range(54).map(_ => {
-    if (n === 14) {
-      s--
-      n = 1
-    }
+let deck: HandCard[] = createDeck()
 
-    if (s === -1) {
-      return {
-        suit: 4,
-        number: 0,
-      }
-    }
+const convertSuit = (n: number): string => 'SHDCJ'[n]
 
-    return {
-      suit: s,
-      number: n++,
-    }
-  })
-}
-let trumpDeck: InputCard[] = createDeck()
+// prettier-ignore
+const convertNumver = (n: number): string =>
+  n ===  0 ? '$' :
+  n ===  1 ? 'A' :
+  n === 13 ? 'K' :
+  n === 12 ? 'Q' :
+  n === 11 ? 'J' :
+  String(n)
 
-const convertSuit = (n: number): string => 'CDHSJ'[n]
+const convertABCDE = (v: string): number | undefined =>
+  new Map([['A', 0], ['B', 1], ['C', 2], ['D', 3], ['E', 4]]).get(v)
 
-const convertNumver = (n: number): string => {
-  switch (n) {
-    case 1:
-      return 'A'
-    case 13:
-      return 'K'
-    case 12:
-      return 'Q'
-    case 11:
-      return 'J'
-    case 0:
-      return '$'
-    default:
-      return String(n)
-  }
-}
-
-const convertCard = (c: InputCard[]): OutputCard[] =>
+const convertCard = (c: HandCard[]): DisplayCard[] =>
   c.map(c => ({
     suit: convertSuit(c.suit),
     number: convertNumver(c.number),
   }))
 
-// prettier-ignore
-export const inputHand = (): InputCard[] => range(5)
-  .map(_ => input().split(' ').map(n => Number(n)))
-  .map(c => ({
-    suit: c[0],
-    number: c[1],
-  }))
-
-const cardDraw = (): InputCard => {
-  const n: number = (Math.random() * trumpDeck.length) | 0
-  const c: InputCard = trumpDeck[n]
-  trumpDeck = trumpDeck.filter(v => v !== trumpDeck[n])
+const cardDraw = (): HandCard => {
+  const n: number = (Math.random() * deck.length) | 0
+  const c: HandCard = deck[n]
+  console.log(deck)
+  deck = deck.filter(v => v !== deck[n])
+  console.log(deck)
+  console.log('')
   return c
 }
 
-export const randHand = (): InputCard[] => range(5).map(cardDraw)
+export const initialHand = (): HandCard[] => range(5).map(cardDraw)
 
-export const outputHand = (c: InputCard[]): string =>
+export const displayHand = (c: HandCard[]): string =>
   convertCard(c)
     .map(c => `${c.suit}:${c.number}`)
     .join(' ')
 
-export const ABCDEPosition = (c: InputCard[]): string =>
+export const choicePosition = (c: HandCard[]): string =>
   c.map((n, i) => ` ${'ABCDE'[i]} ${n.number === 10 ? ' ' : ''}`).join(' ')
 
-const convertABCDE = (v: string): number | string => {
-  switch (v) {
-    case 'A':
-      return 0
-    case 'B':
-      return 1
-    case 'C':
-      return 2
-    case 'D':
-      return 3
-    case 'E':
-      return 4
-    default:
-      return ''
-  }
-}
-
-export const changeHand = (c: InputCard[]): InputCard[] => {
+export const changeHand = (c: HandCard[]): HandCard[] => {
   const n: number[] = input('What to exchange?\n')
     .toUpperCase()
     .split('')
     .map(v => Number(convertABCDE(v)))
+
+  // if (deck.slice(-1)[0].suit !== 4) {
+  //   deck.push({suit: 4, number: 0})
+  // }
+
   return c.map((v, i) => (n.some(a => a === i) ? cardDraw() : v))
 }

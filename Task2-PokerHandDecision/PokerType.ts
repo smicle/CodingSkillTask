@@ -1,8 +1,8 @@
-export type InputCard = {
+export type HandCard = {
   suit: number
   number: number
 }
-export type OutputCard = {
+export type DisplayCard = {
   suit: string
   number: string
 }
@@ -11,8 +11,8 @@ export type PokerHand = {
   hand: string
 }
 
-export const handSuit = (c: InputCard[]): number[] => c.map(n => n.suit)
-export const handNumber = (c: InputCard[]): number[] => c.map(n => n.number)
+export const getHandSuit = (c: HandCard[]): number[] => c.map(n => n.suit)
+export const getHandNumber = (c: HandCard[]): number[] => c.map(n => n.number)
 
 export const hand_type: PokerHand[] = [
   {rank: 0, hand: 'High card'},

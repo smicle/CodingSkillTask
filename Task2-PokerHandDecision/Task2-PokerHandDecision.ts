@@ -1,41 +1,37 @@
 console.log(`Task2-PokerHandDecision`)
 
-import {InputCard, PokerHand} from './Type'
-import {isHand} from './HandRule'
-import {randHand, outputHand, ABCDEPosition, changeHand} from './HandIO'
-import {victoryOutput} from './HandBattle'
+import {HandCard, PokerHand} from './PokerType'
+import {judgeHand} from './HandRule'
+import {initialHand, displayHand, choicePosition, changeHand} from './HandIO'
+import {victoryResult} from './VictoryRule'
 
-const input_hand_1p: InputCard[] = randHand()
-const before_hand_1p: string = outputHand(input_hand_1p)
-const input_hand_2p: InputCard[] = randHand()
-const before_hand_2p: string = outputHand(input_hand_2p)
+const first_hand: HandCard[][] = [initialHand(), initialHand()]
+const second_hand: HandCard[][] = []
 
 console.log(`
 1p
-${ABCDEPosition(input_hand_1p)}
-${before_hand_1p}
+${choicePosition(first_hand[0])}
+${displayHand(first_hand[0])}
 `)
-const change_hand_1p: InputCard[] = changeHand(input_hand_1p)
-const judge_hand_1p: PokerHand = isHand(change_hand_1p)
-const result_hand_1p: string = outputHand(change_hand_1p)
+second_hand.push(changeHand(first_hand[0]))
 
 console.log(`
 2p
-${ABCDEPosition(input_hand_2p)}
-${before_hand_2p}
+${choicePosition(first_hand[1])}
+${displayHand(first_hand[1])}
 `)
-const change_hand_2p: InputCard[] = changeHand(input_hand_2p)
-const judge_hand_2p: PokerHand = isHand(change_hand_2p)
-const result_hand_2p: string = outputHand(change_hand_2p)
+second_hand.push(changeHand(first_hand[1]))
+
+const result_hand: PokerHand[] = [judgeHand(second_hand[0]), judgeHand(second_hand[1])]
 
 console.log(`
 1p
-${judge_hand_1p.hand}
-${result_hand_1p}`)
+${result_hand[0].hand}
+${displayHand(second_hand[0])}`)
 console.log(`
 2p
-${judge_hand_2p.hand}
-${result_hand_2p}
+${result_hand[1].hand}
+${displayHand(second_hand[1])}
 `)
 
-victoryOutput(change_hand_1p, change_hand_2p, judge_hand_1p.rank, judge_hand_2p.rank)
+victoryResult(second_hand[0], second_hand[1], result_hand[0].rank, result_hand[1].rank)

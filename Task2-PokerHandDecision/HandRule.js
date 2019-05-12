@@ -1,51 +1,55 @@
 "use strict";
 exports.__esModule = true;
 var Type_1 = require("./Type");
-var JokerHand_1 = require("./JokerHand");
-// prettier-ignore
-var duplicateNumber = function (c, v) {
-    return c.map(function (n) { return n.number; })
-        .map(function (n, _, a) { return a.filter(function (m) { return m === n; }).length; })
-        .filter(function (n) { return n === v; }).length;
+// import {trumpInfo} from './HandIO'
+// const jokerCount = (c: HandCard[]): number => jokerPosition(c).length
+// const jokerPosition = (c: HandCard[]): number[] => getHandNumber(c).filter(n => n === 0)
+var handDifference = function (c) {
+    return Type_1.getHandNumber(c)
+        .sort(function (a, b) { return a - b; })
+        .map(function (_, i, a) { return a[i + 1] - a[i]; })
+        .join('');
 };
-var isRoyal = function (c) {
-    return [1, 13, 12, 11, 10].every(function (v) { return c.map(function (n) { return n.number; }).indexOf(v) !== -1; });
-};
-var isRoyalFlush = function (c) { return isRoyal(c) && isFlush(c); };
-var isStraightFlush = function (c) { return isStraight(c) && isFlush(c); };
-var isFourCard = function (c) { return duplicateNumber(c, 4) === 4; };
-var isFullHouse = function (c) { return isThreeCard(c) && isOnePair(c); };
-var isFlush = function (c) { return c.map(function (n) { return n.suit; }).every(function (v) { return v === c[0].suit; }); };
-var isStraight = function (c) {
-    if (isRoyal(c))
-        return true;
-    var n = c.map(function (n) { return n.number; }).sort(function (a, b) { return b - a; });
-    var f = n[0];
-    return n.every(function (v) { return v === f--; });
-};
-var isThreeCard = function (c) { return duplicateNumber(c, 3) === 3; };
-var isTwoPair = function (c) { return duplicateNumber(c, 2) === 4; };
-var isOnePair = function (c) { return duplicateNumber(c, 2) === 2; };
+var isFlush = function (c) { return Type_1.getHandSuit(c).every(function (v) { return v === c[0].suit; }); };
+var isRoyal = function (d) { return /9111/.test(d); };
+var isStraight = function (d) { return /1111/.test(d); };
+var isFourCard = function (d) { return /.000/.test(d); };
+var isFullHouse = function (d) { return [/00.0/, /0.00/].some(function (r) { return r.test(d); }); };
+var isThreeCard = function (d) { return [/00../, /.00./, /..00/].some(function (r) { return r.test(d); }); };
+var isTwoPair = function (d) { return [/0.0./, /0..0/, /.0.0/].some(function (r) { return r.test(d); }); };
+var isOnePair = function (d) { return [/0.../, /.0../, /..0./, /...0/].some(function (r) { return r.test(d); }); };
 exports.isHand = function (c) {
-    if (JokerHand_1.isJoker(c))
-        return JokerHand_1.jokerHand(c);
-    if (isRoyalFlush(c))
-        return Type_1.handType[0];
-    if (isStraightFlush(c))
-        return Type_1.handType[1];
-    if (isFourCard(c))
-        return Type_1.handType[2];
-    if (isFullHouse(c))
-        return Type_1.handType[3];
-    if (isFlush(c))
-        return Type_1.handType[4];
-    if (isStraight(c))
-        return Type_1.handType[5];
-    if (isThreeCard(c))
-        return Type_1.handType[6];
-    if (isTwoPair(c))
-        return Type_1.handType[7];
-    if (isOnePair(c))
-        return Type_1.handType[8];
-    return Type_1.handType[9];
+    // if (jokerCount(c) === 2) {
+    // } else if (jokerCount(c) === 1) {
+    //   const [a] = jokerPosition(c)
+    //   const r: PokerHand[] = trumpInfo.map(t => {
+    //     c[a].number = t.number
+    //     c[a].suit = t.suit
+    //     return isHand(c)
+    //   })
+    //   return hand_type[Math.max(...r.map(c => c.rank))]
+    // }
+    var d = handDifference(c);
+    if (isFlush(c)) {
+        if (isRoyal(d))
+            return Type_1.hand_type[9];
+        if (isStraight(d))
+            return Type_1.hand_type[8];
+        return Type_1.hand_type[5];
+    }
+    else {
+        if (isFourCard(d))
+            return Type_1.hand_type[7];
+        if (isFullHouse(d))
+            return Type_1.hand_type[6];
+        if (isRoyal(d) || isStraight(d))
+            return Type_1.hand_type[4];
+        if (isThreeCard(d))
+            return Type_1.hand_type[3];
+        if (isTwoPair(d))
+            return Type_1.hand_type[2];
+        if (isOnePair(d))
+            return Type_1.hand_type[1];
+    }
+    return Type_1.hand_type[0];
 };
