@@ -1,7 +1,7 @@
 "use strict";
 exports.__esModule = true;
 var PokerType_1 = require("./PokerType");
-// import {createDeck} from './HandIO'
+var HandIO_1 = require("./HandIO");
 var numberDifference = function (c) {
     return PokerType_1.getHandNumber(c)
         .sort(function (a, b) { return a - b; })
@@ -41,18 +41,15 @@ var isHand = function (c) {
     }
     return PokerType_1.hand_type[0];
 };
-// const jokerCount = (c: HandCard[]): number => jokerPosition(c).length
-// const jokerPosition = (c: HandCard[]): number[] => getHandNumber(c).filter(n => n === 0)
+var isJoker = function (c) { return PokerType_1.getHandNumber(c).some(function (n) { return n === 0; }); };
 exports.judgeHand = function (c) {
-    // if (jokerCount(c) === 2) {
-    // } else if (jokerCount(c) === 1) {
-    //   const [a] = jokerPosition(c)
-    //   const r: PokerHand[] = trumpInfo.map(t => {
-    //     c[a].number = t.number
-    //     c[a].suit = t.suit
-    //     return isHand(c)
-    //   })
-    //   return hand_type[Math.max(...r.map(c => c.rank))]
-    // }
+    if (isJoker(c)) {
+        var d_1 = c.concat();
+        d_1.sort(function (a, b) { return a.number - b.number; }).shift();
+        return PokerType_1.hand_type[Math.max.apply(Math, HandIO_1.createDeck()
+            .filter(function (a) { return d_1.findIndex(function (b) { return JSON.stringify(a) === JSON.stringify(b); }) === -1; })
+            .map(function (v) { return isHand(d_1.concat([v])); })
+            .map(function (v) { return v.rank; }))];
+    }
     return isHand(c);
 };

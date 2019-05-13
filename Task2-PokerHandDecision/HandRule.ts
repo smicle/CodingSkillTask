@@ -1,5 +1,5 @@
 import {HandCard, PokerHand, getHandSuit, getHandNumber, hand_type} from './PokerType'
-// import {createDeck} from './HandIO'
+import {createDeck} from './HandIO'
 
 const numberDifference = (c: HandCard[]): string =>
   getHandNumber(c)
@@ -34,20 +34,21 @@ const isHand = (c: HandCard[]): PokerHand => {
   return hand_type[0]
 }
 
-// const jokerCount = (c: HandCard[]): number => jokerPosition(c).length
-// const jokerPosition = (c: HandCard[]): number[] => getHandNumber(c).filter(n => n === 0)
+const isJoker = (c: HandCard[]): boolean => getHandNumber(c).some(n => n === 0)
 
 export const judgeHand = (c: HandCard[]): PokerHand => {
-  // if (jokerCount(c) === 2) {
-  // } else if (jokerCount(c) === 1) {
-  //   const [a] = jokerPosition(c)
-  //   const r: PokerHand[] = trumpInfo.map(t => {
-  //     c[a].number = t.number
-  //     c[a].suit = t.suit
-  //     return isHand(c)
-  //   })
-  //   return hand_type[Math.max(...r.map(c => c.rank))]
-  // }
+  if (isJoker(c)) {
+    const d: HandCard[] = c.concat()
+    d.sort((a, b) => a.number - b.number).shift()
+    return hand_type[
+      Math.max(
+        ...createDeck()
+          .filter(a => d.findIndex(b => JSON.stringify(a) === JSON.stringify(b)) === -1)
+          .map(v => isHand([...d, v]))
+          .map(v => v.rank)
+      )
+    ]
+  }
 
   return isHand(c)
 }

@@ -47,8 +47,8 @@ exports.changeHand = function (c) {
         .toUpperCase()
         .split('')
         .map(function (v) { return Number(convertABCDE(v)); });
-    // if (deck.slice(-1)[0].suit !== 4) {
-    //   deck.push({suit: 4, number: 0})
-    // }
+    if (deck.slice(-1)[0].suit !== 4) {
+        deck.push({ suit: 4, number: 0 });
+    }
     return c.map(function (v, i) { return (n.some(function (a) { return a === i; }) ? cardDraw() : v); });
 };

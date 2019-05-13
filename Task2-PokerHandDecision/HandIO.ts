@@ -52,9 +52,9 @@ export const changeHand = (c: HandCard[]): HandCard[] => {
     .split('')
     .map(v => Number(convertABCDE(v)))
 
-  // if (deck.slice(-1)[0].suit !== 4) {
-  //   deck.push({suit: 4, number: 0})
-  // }
+  if (deck.slice(-1)[0].suit !== 4) {
+    deck.push({suit: 4, number: 0})
+  }
 
   return c.map((v, i) => (n.some(a => a === i) ? cardDraw() : v))
 }
