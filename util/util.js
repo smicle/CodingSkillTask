@@ -6,3 +6,4 @@ exports.input = function (s) {
     return readlineSync.question(s);
 };
 exports.range = function (n) { return Array.from({ length: n }, function (_, i) { return i; }); };
+exports.count = function (a, n) { return a.filter(function (v) { return v == n; }).length; };

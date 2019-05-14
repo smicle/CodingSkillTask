@@ -17,19 +17,19 @@ const isTwoPair = (d: string): boolean => [/0.0./, /0..0/, /.0.0/].some(r => r.t
 const isOnePair = (d: string): boolean => [/0.../, /.0../, /..0./, /...0/].some(r => r.test(d))
 
 const isHand = (c: HandCard[]): PokerHand => {
-  const d: string = numberDifference(c)
+  const n: string = numberDifference(c)
 
   if (isFlush(c)) {
-    if (isRoyal(d)) return hand_type[9]
-    if (isStraight(d)) return hand_type[8]
+    if (isRoyal(n)) return hand_type[9]
+    if (isStraight(n)) return hand_type[8]
     return hand_type[5]
   } else {
-    if (isFourCard(d)) return hand_type[7]
-    if (isFullHouse(d)) return hand_type[6]
-    if (isRoyal(d) || isStraight(d)) return hand_type[4]
-    if (isThreeCard(d)) return hand_type[3]
-    if (isTwoPair(d)) return hand_type[2]
-    if (isOnePair(d)) return hand_type[1]
+    if (isFourCard(n)) return hand_type[7]
+    if (isFullHouse(n)) return hand_type[6]
+    if (isRoyal(n) || isStraight(n)) return hand_type[4]
+    if (isThreeCard(n)) return hand_type[3]
+    if (isTwoPair(n)) return hand_type[2]
+    if (isOnePair(n)) return hand_type[1]
   }
   return hand_type[0]
 }

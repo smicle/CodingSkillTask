@@ -17,26 +17,26 @@ var isThreeCard = function (d) { return [/00../, /.00./, /..00/].some(function (
 var isTwoPair = function (d) { return [/0.0./, /0..0/, /.0.0/].some(function (r) { return r.test(d); }); };
 var isOnePair = function (d) { return [/0.../, /.0../, /..0./, /...0/].some(function (r) { return r.test(d); }); };
 var isHand = function (c) {
-    var d = numberDifference(c);
+    var n = numberDifference(c);
     if (isFlush(c)) {
-        if (isRoyal(d))
+        if (isRoyal(n))
             return PokerType_1.hand_type[9];
-        if (isStraight(d))
+        if (isStraight(n))
             return PokerType_1.hand_type[8];
         return PokerType_1.hand_type[5];
     }
     else {
-        if (isFourCard(d))
+        if (isFourCard(n))
             return PokerType_1.hand_type[7];
-        if (isFullHouse(d))
+        if (isFullHouse(n))
             return PokerType_1.hand_type[6];
-        if (isRoyal(d) || isStraight(d))
+        if (isRoyal(n) || isStraight(n))
             return PokerType_1.hand_type[4];
-        if (isThreeCard(d))
+        if (isThreeCard(n))
             return PokerType_1.hand_type[3];
-        if (isTwoPair(d))
+        if (isTwoPair(n))
             return PokerType_1.hand_type[2];
-        if (isOnePair(d))
+        if (isOnePair(n))
             return PokerType_1.hand_type[1];
     }
     return PokerType_1.hand_type[0];

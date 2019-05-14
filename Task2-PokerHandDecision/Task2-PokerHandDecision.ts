@@ -25,13 +25,11 @@ second_hand.push(changeHand(first_hand[1]))
 const result_hand: PokerHand[] = [judgeHand(second_hand[0]), judgeHand(second_hand[1])]
 
 console.log(`
-1p
-${result_hand[0].hand}
+1p ${result_hand[0].hand}
 ${displayHand(second_hand[0])}`)
 console.log(`
-2p
-${result_hand[1].hand}
+2p ${result_hand[1].hand}
 ${displayHand(second_hand[1])}
 `)
 
-victoryResult(second_hand[0], second_hand[1], result_hand[0].rank, result_hand[1].rank)
+console.log(victoryResult(result_hand, second_hand))
