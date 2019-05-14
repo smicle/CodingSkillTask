@@ -19,37 +19,48 @@ var isOnePair = function (d) { return [/0.../, /.0../, /..0./, /...0/].some(func
 var isHand = function (c) {
     var n = numberDifference(c);
     if (isFlush(c)) {
+        // Royal Flush
         if (isRoyal(n))
             return PokerType_1.hand_type[9];
+        // Straight Flush
         if (isStraight(n))
             return PokerType_1.hand_type[8];
+        // Flush
         return PokerType_1.hand_type[5];
     }
     else {
+        // Four Card
         if (isFourCard(n))
             return PokerType_1.hand_type[7];
+        // Full House
         if (isFullHouse(n))
             return PokerType_1.hand_type[6];
+        // Straight
         if (isRoyal(n) || isStraight(n))
             return PokerType_1.hand_type[4];
+        // Three Card
         if (isThreeCard(n))
             return PokerType_1.hand_type[3];
+        // Two Pair
         if (isTwoPair(n))
             return PokerType_1.hand_type[2];
+        // One Pair
         if (isOnePair(n))
             return PokerType_1.hand_type[1];
     }
+    // High card
     return PokerType_1.hand_type[0];
 };
 var isJoker = function (c) { return PokerType_1.getHandNumber(c).some(function (n) { return n === 0; }); };
 exports.judgeHand = function (c) {
     if (isJoker(c)) {
         var d_1 = c.concat();
-        d_1.sort(function (a, b) { return a.number - b.number; }).shift();
-        return PokerType_1.hand_type[Math.max.apply(Math, HandIO_1.createDeck()
+        d_1.sort(function (a, b) { return b.number - a.number; }).pop();
+        var rank = HandIO_1.createDeck()
             .filter(function (a) { return d_1.findIndex(function (b) { return JSON.stringify(a) === JSON.stringify(b); }) === -1; })
             .map(function (v) { return isHand(d_1.concat([v])); })
-            .map(function (v) { return v.rank; }))];
+            .map(function (v) { return v.rank; });
+        return PokerType_1.hand_type[Math.max.apply(Math, rank)];
     }
     return isHand(c);
 };

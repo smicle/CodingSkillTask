@@ -20,17 +20,27 @@ const isHand = (c: HandCard[]): PokerHand => {
   const n: string = numberDifference(c)
 
   if (isFlush(c)) {
+    // Royal Flush
     if (isRoyal(n)) return hand_type[9]
+    // Straight Flush
     if (isStraight(n)) return hand_type[8]
+    // Flush
     return hand_type[5]
   } else {
+    // Four Card
     if (isFourCard(n)) return hand_type[7]
+    // Full House
     if (isFullHouse(n)) return hand_type[6]
+    // Straight
     if (isRoyal(n) || isStraight(n)) return hand_type[4]
+    // Three Card
     if (isThreeCard(n)) return hand_type[3]
+    // Two Pair
     if (isTwoPair(n)) return hand_type[2]
+    // One Pair
     if (isOnePair(n)) return hand_type[1]
   }
+  // High card
   return hand_type[0]
 }
 
@@ -39,15 +49,13 @@ const isJoker = (c: HandCard[]): boolean => getHandNumber(c).some(n => n === 0)
 export const judgeHand = (c: HandCard[]): PokerHand => {
   if (isJoker(c)) {
     const d: HandCard[] = c.concat()
-    d.sort((a, b) => a.number - b.number).shift()
-    return hand_type[
-      Math.max(
-        ...createDeck()
-          .filter(a => d.findIndex(b => JSON.stringify(a) === JSON.stringify(b)) === -1)
-          .map(v => isHand([...d, v]))
-          .map(v => v.rank)
-      )
-    ]
+    d.sort((a, b) => b.number - a.number).pop()
+
+    const rank: number[] = createDeck()
+      .filter(a => d.findIndex(b => JSON.stringify(a) === JSON.stringify(b)) === -1)
+      .map(v => isHand([...d, v]))
+      .map(v => v.rank)
+    return hand_type[Math.max(...rank)]
   }
 
   return isHand(c)

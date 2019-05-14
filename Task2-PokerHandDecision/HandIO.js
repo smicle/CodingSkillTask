@@ -8,10 +8,14 @@ exports.createDeck = function () {
     }); });
 };
 var deck = exports.createDeck();
-var convertSuit = function (n) { return 'SHDCJ'[n]; };
+// prettier-ignore
+var convertSuit = function (n) {
+    return n === 4 ? 'JOKER' :
+        "\u001B[" + (n % 3 ? 31 : 34) + "m" + '♠♥♦♣'[n] + " \u001B[0m";
+};
 // prettier-ignore
 var convertNumver = function (n) {
-    return n === 0 ? '$' :
+    return n === 0 ? '' :
         n === 1 ? 'A' :
             n === 13 ? 'K' :
                 n === 12 ? 'Q' :
@@ -36,17 +40,15 @@ var cardDraw = function () {
 exports.initialHand = function () { return util_1.range(5).map(cardDraw); };
 exports.displayHand = function (c) {
     return convertCard(c)
-        .map(function (c) { return c.suit + ":" + c.number; })
+        .map(function (c) { return "" + c.suit + c.number; })
         .join(' ');
 };
-exports.choicePosition = function (c) {
-    return c.map(function (n, i) { return " " + 'ABCDE'[i] + " " + (n.number === 10 ? ' ' : ''); }).join(' ');
-};
 exports.changeHand = function (c) {
-    var n = util_1.input('What to exchange?\n')
+    var n = util_1.input('Change card ')
         .toUpperCase()
         .split('')
         .map(function (v) { return Number(convertABCDE(v)); });
+    // addJoker
     if (deck.slice(-1)[0].suit !== 4) {
         deck.push({ suit: 4, number: 0 });
     }

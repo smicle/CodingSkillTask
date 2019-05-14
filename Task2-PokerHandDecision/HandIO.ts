@@ -9,11 +9,14 @@ export const createDeck = (): HandCard[] =>
 
 let deck: HandCard[] = createDeck()
 
-const convertSuit = (n: number): string => 'SHDCJ'[n]
+// prettier-ignore
+const convertSuit = (n: number): string =>
+  n === 4 ? 'JOKER' :
+  `\u001b[${n % 3 ? 31 : 34}m${'♠♥♦♣'[n]} \u001b[0m`
 
 // prettier-ignore
 const convertNumver = (n: number): string =>
-  n ===  0 ? '$' :
+  n ===  0 ?  '' :
   n ===  1 ? 'A' :
   n === 13 ? 'K' :
   n === 12 ? 'Q' :
@@ -40,18 +43,16 @@ export const initialHand = (): HandCard[] => range(5).map(cardDraw)
 
 export const displayHand = (c: HandCard[]): string =>
   convertCard(c)
-    .map(c => `${c.suit}:${c.number}`)
+    .map(c => `${c.suit}${c.number}`)
     .join(' ')
 
-export const choicePosition = (c: HandCard[]): string =>
-  c.map((n, i) => ` ${'ABCDE'[i]} ${n.number === 10 ? ' ' : ''}`).join(' ')
-
 export const changeHand = (c: HandCard[]): HandCard[] => {
-  const n: number[] = input('What to exchange?\n')
+  const n: number[] = input('Change card ')
     .toUpperCase()
     .split('')
     .map(v => Number(convertABCDE(v)))
 
+  // addJoker
   if (deck.slice(-1)[0].suit !== 4) {
     deck.push({suit: 4, number: 0})
   }
