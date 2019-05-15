@@ -1,4 +1,4 @@
-import {count} from '../util/util'
+// import {count} from '../util/util'
 import {HandCard, PokerHand, getHandSuit} from './PokerType'
 
 const isSuit = (c: HandCard[][]): number[] => c.map(v => -getHandSuit(v).sort((a, b) => a - b)[0])
@@ -20,7 +20,7 @@ const isFullHouse = (c: HandCard[][]): number[] =>
     // prettier-ignore
     return n.slice(-1)[0] === 0
       ? duplicateOnly(n)
-      : count(n, n[0]) === 3 ? n[0] : n.slice(-1)[0]
+      : n.count(n[0]) === 3 ? n[0] : n.slice(-1)[0]
   })
 
 const isOnePair = (c: HandCard[][]): number[] =>

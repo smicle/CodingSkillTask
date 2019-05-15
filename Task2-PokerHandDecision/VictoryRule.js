@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-var util_1 = require("../util/util");
+// import {count} from '../util/util'
 var PokerType_1 = require("./PokerType");
 var isSuit = function (c) { return c.map(function (v) { return -PokerType_1.getHandSuit(v).sort(function (a, b) { return a - b; })[0]; }); };
 var getHandNumber = function (c) {
@@ -19,7 +19,7 @@ var isFullHouse = function (c) {
         // prettier-ignore
         return n.slice(-1)[0] === 0
             ? duplicateOnly(n)
-            : util_1.count(n, n[0]) === 3 ? n[0] : n.slice(-1)[0];
+            : n.count(n[0]) === 3 ? n[0] : n.slice(-1)[0];
     });
 };
 var isOnePair = function (c) {
