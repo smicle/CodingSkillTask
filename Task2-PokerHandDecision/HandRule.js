@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+require("../util/Prototype");
 var PokerType_1 = require("./PokerType");
 var HandIO_1 = require("./HandIO");
 var numberDifference = function (c) {
@@ -57,7 +58,7 @@ exports.judgeHand = function (c) {
         var d_1 = c.concat();
         d_1.sort(function (a, b) { return b.number - a.number; }).pop();
         var rank = HandIO_1.createDeck()
-            .filter(function (a) { return d_1.findIndex(function (b) { return JSON.stringify(a) === JSON.stringify(b); }) === -1; })
+            .filter(function (a) { return d_1.findIndex(function (b) { return a._equal(b); }) === -1; })
             .map(function (v) { return isHand(d_1.concat([v])); })
             .map(function (v) { return v.rank; });
         return PokerType_1.hand_type[Math.max.apply(Math, rank)];

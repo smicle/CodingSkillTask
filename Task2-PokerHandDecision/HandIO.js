@@ -1,8 +1,9 @@
 "use strict";
 exports.__esModule = true;
-var util_1 = require("../util/util");
+require("../util/Prototype");
+var Function_1 = require("../util/Function");
 exports.createDeck = function () {
-    return util_1.range(52).map(function (i) { return ({
+    return Function_1.range(52).map(function (i) { return ({
         suit: (i / 13) | 0,
         number: (i % 13) + 1
     }); });
@@ -37,14 +38,14 @@ var cardDraw = function () {
     deck = deck.filter(function (v) { return v !== deck[n]; });
     return c;
 };
-exports.initialHand = function () { return util_1.range(5).map(cardDraw); };
+exports.initialHand = function () { return Function_1.range(5).map(cardDraw); };
 exports.displayHand = function (c) {
     return convertCard(c)
         .map(function (c) { return "" + c.suit + c.number; })
         .join(' ');
 };
 exports.changeHand = function (c) {
-    var n = util_1.input('Change card ')
+    var n = Function_1.input('Change card ')
         .toUpperCase()
         .split('')
         .map(function (v) { return Number(convertABCDE(v)); });

@@ -1,4 +1,5 @@
-import {input, range} from '../util/util'
+import '../util/Prototype'
+import {input, range} from '../util/Function'
 import {HandCard, DisplayCard} from './PokerType'
 
 export const createDeck = (): HandCard[] =>

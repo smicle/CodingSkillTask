@@ -1,9 +1,10 @@
 "use strict";
 exports.__esModule = true;
-console.log('Task2-PokerHandDecision');
+require("../util/Prototype");
 var HandRule_1 = require("./HandRule");
 var HandIO_1 = require("./HandIO");
 var VictoryRule_1 = require("./VictoryRule");
+console.log('Task2-PokerHandDecision');
 console.log('A card can be designated in "ABCDE" from the right.');
 var first_hand = [HandIO_1.initialHand(), HandIO_1.initialHand()];
 var second_hand = [];

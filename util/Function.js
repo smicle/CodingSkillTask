@@ -25,25 +25,8 @@ exports.range = function (start, stop, step) {
             }
             else {
                 console.error(Error('range() arg 3 must not be zero'));
+                process.exit(1);
             }
     }
     return [];
 };
-Array.prototype.count = function (n) {
-    return this.filter(function (v) { return v == n; }).length;
-};
-// range
-// https://docs.python.org/ja/3/library/stdtypes.html?highlight=range#range
-// console.log(range(10))
-// console.log(range(10, 20))
-// console.log(range(-10, 10))
-// console.log(range(10, 20, 3))
-// console.log(range(-10, 10, 3))
-// console.log(range(-10, -20, -1))
-// console.log(range(10, -10, -1))
-// console.log(range(-10, -20, -3))
-// console.log(range(10, -10, -3))
-// console.log(range(0))
-// console.log(range(1, 0))
-// console.log(range(0, 1, -1))
-// console.log(range(0, 0, 0))

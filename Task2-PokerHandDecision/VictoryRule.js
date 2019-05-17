@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-// import {count} from '../util/util'
+require("../util/Prototype");
 var PokerType_1 = require("./PokerType");
 var isSuit = function (c) { return c.map(function (v) { return -PokerType_1.getHandSuit(v).sort(function (a, b) { return a - b; })[0]; }); };
 var getHandNumber = function (c) {
@@ -9,23 +9,20 @@ var getHandNumber = function (c) {
         .map(function (n) { return (n === 1 ? 14 : n); })
         .sort(function (a, b) { return b - a; });
 };
-var duplicateOnly = function (n) {
-    return n.filter(function (n, i, a) { return a.indexOf(n) === i && i !== a.lastIndexOf(n); })[0];
-};
-var isNCard = function (c) { return c.map(function (v) { return duplicateOnly(getHandNumber(v)); }); };
+var isNCard = function (c) { return c.map(function (v) { return getHandNumber(v)._overlap()[0]; }); };
 var isFullHouse = function (c) {
     return c.map(function (v) {
         var n = getHandNumber(v);
         // prettier-ignore
-        return n.slice(-1)[0] === 0
-            ? duplicateOnly(n)
-            : n.count(n[0]) === 3 ? n[0] : n.slice(-1)[0];
+        return n.includes(0)
+            ? n._overlap()[0]
+            : n._count(n[0]) === 3 ? n[0] : n.slice(-1)[0];
     });
 };
 var isOnePair = function (c) {
     return c.map(function (v) {
         var n = getHandNumber(v);
-        return n.slice(-1)[0] === 0 ? n[0] : duplicateOnly(n);
+        return n.includes(0) ? n[0] : n._overlap()[0];
     });
 };
 var isBigNumber = function (c) { return c.map(function (v) { return getHandNumber(v)[0]; }); };

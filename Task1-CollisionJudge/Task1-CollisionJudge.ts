@@ -1,6 +1,5 @@
-console.log('Task1-Collisionis')
-
-import {input, range} from '../util/util'
+import '../util/Prototype'
+import {input, range} from '../util/Function'
 
 type Rect = {
   x: number
@@ -8,6 +7,8 @@ type Rect = {
   width: number
   height: number
 }
+
+console.log('Task1-Collisionis')
 
 // prettier-ignore
 const s: number[] = input().split(' ').map((n: string) => Number(n))

@@ -1,3 +1,4 @@
+import '../util/Prototype'
 import {HandCard, PokerHand, getHandSuit, getHandNumber, hand_type} from './PokerType'
 import {createDeck} from './HandIO'
 
@@ -52,7 +53,7 @@ export const judgeHand = (c: HandCard[]): PokerHand => {
     d.sort((a, b) => b.number - a.number).pop()
 
     const rank: number[] = createDeck()
-      .filter(a => d.findIndex(b => JSON.stringify(a) === JSON.stringify(b)) === -1)
+      .filter(a => d.findIndex(b => a._equal(b)) === -1)
       .map(v => isHand([...d, v]))
       .map(v => v.rank)
     return hand_type[Math.max(...rank)]

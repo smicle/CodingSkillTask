@@ -1,10 +1,10 @@
-console.log('Task2-PokerHandDecision')
-
+import '../util/Prototype'
 import {HandCard, PokerHand} from './PokerType'
 import {judgeHand} from './HandRule'
 import {initialHand, displayHand, changeHand} from './HandIO'
 import {victoryResult} from './VictoryRule'
 
+console.log('Task2-PokerHandDecision')
 console.log('A card can be designated in "ABCDE" from the right.')
 
 const first_hand: HandCard[][] = [initialHand(), initialHand()]
