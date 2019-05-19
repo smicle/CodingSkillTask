@@ -4,6 +4,8 @@ import {judgeHand} from './HandRule'
 import {initialHand, displayHand, changeHand} from './HandIO'
 import {victoryResult} from './VictoryRule'
 
+// const n = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
 console.log('Task2-PokerHandDecision')
 console.log('A card can be designated in "ABCDE" from the right.')
 

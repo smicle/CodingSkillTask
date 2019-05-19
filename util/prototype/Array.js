@@ -1,5 +1,6 @@
 "use strict";
 exports.__esModule = true;
+var Function_1 = require("../Function");
 Array.prototype._empty = function () {
     return this.length === 0;
 };
@@ -23,6 +24,27 @@ Array.prototype._overlap = function () {
     l.forEach(function (v, i) { return (_this[i] = v); });
     return this;
 };
+Array.prototype._first = function (n) {
+    var _this = this;
+    if (n === void 0) { n = 1; }
+    if (n === 1) {
+        return this[0];
+    }
+    else {
+        return Function_1.range(n).map(function (i) { return _this[i]; });
+    }
+};
+Array.prototype._last = function (n) {
+    if (n === void 0) { n = 1; }
+    var a = this.concat();
+    if (n === 1) {
+        return a.pop();
+    }
+    return a
+        .reverse()
+        ._first(n)
+        .reverse();
+};
 Array.prototype._clear = function () {
     this.length = 0;
     return this;
@@ -34,9 +56,9 @@ Array.prototype._remove = function () {
         n[_i] = arguments[_i];
     }
     if (n.length === 1) {
-        return this.splice(n[0], 1)[0];
+        return this.splice(n[0], 1)._first();
     }
     else {
-        return n.map(function (v) { return _this.splice(v, 1)[0]; });
+        return n.map(function (v) { return _this.splice(v, 1)._first(); });
     }
 };

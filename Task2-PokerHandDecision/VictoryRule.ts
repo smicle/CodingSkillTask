@@ -1,7 +1,13 @@
 import '../util/Prototype'
 import {HandCard, PokerHand, getHandSuit} from './PokerType'
 
-const isSuit = (c: HandCard[][]): number[] => c.map(v => -getHandSuit(v).sort((a, b) => a - b)[0])
+const isSuit = (c: HandCard[][]): number[] =>
+  // prettier-ignore
+  c.map(v =>
+    -getHandSuit(v)
+      .sort((a, b) => a - b)
+      ._first()
+  )
 
 const getHandNumber = (c: HandCard[]): number[] =>
   c
@@ -9,24 +15,32 @@ const getHandNumber = (c: HandCard[]): number[] =>
     .map(n => (n === 1 ? 14 : n))
     .sort((a, b) => b - a)
 
-const isNCard = (c: HandCard[][]): number[] => c.map(v => getHandNumber(v)._overlap()[0])
+const isNCard = (c: HandCard[][]): number[] =>
+  c.map(v =>
+    getHandNumber(v)
+      ._overlap()
+      ._first()
+  )
 
 const isFullHouse = (c: HandCard[][]): number[] =>
+  // prettier-ignore
   c.map(v => {
     const n = getHandNumber(v)
-    // prettier-ignore
-    return n.includes(0)
-      ? n._overlap()[0]
-      : n._count(n[0]) === 3 ? n[0] : n.slice(-1)[0]
+    const f = n._first(), l = n._last()
+    return (
+      n.includes(0)
+        ? n._overlap()._first()
+        : n._count(f) === 3 ? f : l
+    )
   })
 
 const isOnePair = (c: HandCard[][]): number[] =>
   c.map(v => {
     const n = getHandNumber(v)
-    return n.includes(0) ? n[0] : n._overlap()[0]
+    return n.includes(0) ? n._first() : n._overlap()._first()
   })
 
-const isBigNumber = (c: HandCard[][]): number[] => c.map(v => getHandNumber(v)[0])
+const isBigNumber = (c: HandCard[][]): number[] => c.map(v => getHandNumber(v)._first())
 
 const fightNumber = (c: number[]): string =>
   c[0] > c[1] ? '1p WIN!!!' : c[0] < c[1] ? '2p WIN!!!' : 'Draw'
