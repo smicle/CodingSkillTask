@@ -9,6 +9,10 @@ declare global {
     _overlap(): any[]
     _first(n?: number): any | any[]
     _last(n?: number): any | any[]
+    _take(n: number): any[]
+    _drop(n: number): any[]
+    _asc(s?: string): any[]
+    _desc(s?: string): any[]
     _clear(): any[]
     _remove(...n: number[]): any | any[]
   }
@@ -55,6 +59,33 @@ Array.prototype._last = function(n = 1): any | any[] {
   }
   // prettier-ignore
   return a.reverse()._first(n).reverse()
+}
+
+Array.prototype._take = function(n: number): any[] {
+  const a = this.concat()
+  a.splice(n)
+  return a
+}
+
+Array.prototype._drop = function(n: number): any[] {
+  const a = this.concat()
+  return a.splice(n)
+}
+
+Array.prototype._asc = function(s = ''): any[] {
+  if (s === '') {
+    return this.sort((a, b) => a - b)
+  } else {
+    return this.sort((a, b) => a[s] - b[s])
+  }
+}
+
+Array.prototype._desc = function(s = ''): any[] {
+  if (s === '') {
+    return this.sort((a, b) => b - a)
+  } else {
+    return this.sort((a, b) => b[s] - a[s])
+  }
 }
 
 Array.prototype._clear = function(): any[] {
