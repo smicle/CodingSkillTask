@@ -1,5 +1,5 @@
 import '../util/Prototype'
-import {input, range} from '../util/Function'
+import * as smicle from '../util/Function'
 
 type Rect = {
   x: number
@@ -11,7 +11,7 @@ type Rect = {
 console.log('Task1-Collisionis')
 
 // prettier-ignore
-const s: number[] = input().split(' ').map((n: string) => Number(n))
+const s: number[] = smicle.input().split(' ').map((n: string) => Number(n))
 const self: Rect = {
   x: s[0],
   y: s[1],
@@ -21,8 +21,8 @@ const self: Rect = {
 
 const n: number = Number(input())
 // prettier-ignore
-const enemy: Rect[] = range(n)
-  .map(_ => input().split(' ').map((n: string) => Number(n)))
+const enemy: Rect[] = smicle.range(n)
+  .map(_ => smicle.input().split(' ').map((n: string) => Number(n)))
   .map(e => ({
     x: e[0],
     y: e[1],

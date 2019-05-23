@@ -1,6 +1,6 @@
 "use strict";
 exports.__esModule = true;
-var Function_1 = require("../Function");
+var smicle = require("../Function");
 Array.prototype._empty = function () {
     return this.length === 0;
 };
@@ -25,7 +25,7 @@ Array.prototype._first = function (n) {
         return this[0];
     }
     else {
-        return Function_1.range(n).map(function (i) { return _this[i]; });
+        return smicle.range(n).map(function (i) { return _this[i]; });
     }
 };
 Array.prototype._last = function (n) {
@@ -47,7 +47,7 @@ Array.prototype._drop = function (n) {
     return a.splice(n);
 };
 Array.prototype._sample = function () {
-    return this[Function_1.randint(this.length)];
+    return this[smicle.randInt(this.length)];
 };
 Array.prototype._asc = function (s) {
     if (s === void 0) { s = ''; }
@@ -76,13 +76,13 @@ Array.prototype._rotate = function (n) {
 Array.prototype._shuffle = function () {
     var _this = this;
     var a = this.concat();
-    Function_1.range(this.length).forEach(function (i) { return (_this[i] = a._remove(Function_1.randint(a.length))); });
+    smicle.range(this.length).forEach(function (i) { return (_this[i] = a._remove(smicle.randInt(a.length))); });
     return this;
 };
 Array.prototype._flat = function () {
     var a = this.toString()
         .split(',')
-        .map(function (n) { return Number(n); });
+        .map(Number);
     return this._copy(a);
 };
 Array.prototype._copy = function (a) {
