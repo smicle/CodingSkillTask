@@ -11,18 +11,12 @@ Array.prototype._count = function (n) {
     return this.filter(function (v) { return v == n; }).length;
 };
 Array.prototype._uniq = function () {
-    var _this = this;
     var a = Array.from(new Set(this));
-    this._clear();
-    a.forEach(function (v, i) { return (_this[i] = v); });
-    return this;
+    return this._copy(a);
 };
 Array.prototype._overlap = function () {
-    var _this = this;
     var a = this.filter(function (v, i, a) { return a.indexOf(v) === i && i !== a.lastIndexOf(v); });
-    this._clear();
-    a.forEach(function (v, i) { return (_this[i] = v); });
-    return this;
+    return this._copy(a);
 };
 Array.prototype._first = function (n) {
     var _this = this;
@@ -86,10 +80,13 @@ Array.prototype._shuffle = function () {
     return this;
 };
 Array.prototype._flat = function () {
-    var _this = this;
     var a = this.toString()
         .split(',')
         .map(function (n) { return Number(n); });
+    return this._copy(a);
+};
+Array.prototype._copy = function (a) {
+    var _this = this;
     this._clear();
     a.forEach(function (v, i) { return (_this[i] = v); });
     return this;
@@ -116,7 +113,6 @@ Array.prototype._remove = function () {
         return this.splice(n._first(), 1)._first();
     }
     else {
-        n._desc();
-        return n.map(function (v) { return _this.splice(v, 1)._first(); });
+        return n._desc().map(function (v) { return _this.splice(v, 1)._first(); });
     }
 };

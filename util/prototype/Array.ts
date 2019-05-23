@@ -17,7 +17,7 @@ declare global {
     _rotate(n?: number): any[]
     _shuffle(): any[]
     _flat(): any[]
-    // _copy(): any[]
+    _copy(a: any[]): any[]
     _clear(): any[]
     _delete(s: any): any[]
     _remove(...n: number[]): any | any[]
@@ -38,16 +38,12 @@ Array.prototype._count = function(n) {
 
 Array.prototype._uniq = function(): any[] {
   const a = Array.from(new Set(this))
-  this._clear()
-  a.forEach((v, i) => (this[i] = v))
-  return this
+  return this._copy(a)
 }
 
 Array.prototype._overlap = function(): any[] {
   const a = this.filter((v, i, a) => a.indexOf(v) === i && i !== a.lastIndexOf(v))
-  this._clear()
-  a.forEach((v, i) => (this[i] = v))
-  return this
+  return this._copy(a)
 }
 
 Array.prototype._first = function(n = 1): any | any[] {
@@ -114,16 +110,14 @@ Array.prototype._flat = function(): any[] {
   const a = this.toString()
     .split(',')
     .map(n => Number(n))
+  return this._copy(a)
+}
+
+Array.prototype._copy = function(a: any[]): any[] {
   this._clear()
   a.forEach((v, i) => (this[i] = v))
   return this
 }
-
-// Array.prototype._copy = function(a: any[]): any[] {
-//   this._clear()
-//   a.forEach((v, i) => (this[i] = v))
-//   return this
-// }
 
 Array.prototype._clear = function(): any[] {
   this.length = 0
@@ -142,7 +136,6 @@ Array.prototype._remove = function(...n: number[]): any | any[] {
   } else if (n.length === 1) {
     return this.splice(n._first(), 1)._first()
   } else {
-    n._desc()
-    return n.map(v => this.splice(v, 1)._first())
+    return n._desc().map(v => this.splice(v, 1)._first())
   }
 }
