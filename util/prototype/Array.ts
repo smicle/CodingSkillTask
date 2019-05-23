@@ -11,8 +11,10 @@ declare global {
     _last(n?: number): any | any[]
     _take(n: number): any[]
     _drop(n: number): any[]
+    _sample(): any[]
     _asc(s?: string): any[]
     _desc(s?: string): any[]
+    _rotate(n?: number): any[]
     _clear(): any[]
     _remove(...n: number[]): any | any[]
   }
@@ -72,6 +74,10 @@ Array.prototype._drop = function(n: number): any[] {
   return a.splice(n)
 }
 
+Array.prototype._sample = function(): any[] {
+  return this[(Math.random() * this.length) | 0]
+}
+
 Array.prototype._asc = function(s = ''): any[] {
   if (s === '') {
     return this.sort((a, b) => a - b)
@@ -86,6 +92,12 @@ Array.prototype._desc = function(s = ''): any[] {
   } else {
     return this.sort((a, b) => b[s] - a[s])
   }
+}
+
+Array.prototype._rotate = function(n = 1): any[] {
+  n %= this.length
+  this.unshift(...this.splice(n))
+  return this
 }
 
 Array.prototype._clear = function(): any[] {
