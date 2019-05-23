@@ -5,6 +5,8 @@ exports.input = function (s) {
     if (s === void 0) { s = ''; }
     return readlineSync.question(s);
 };
+exports.rand = function (n) { return Math.random() * n; };
+exports.randint = function (n) { return Number(exports.rand(n)); };
 exports.range = function (start, stop, step) {
     if (stop === void 0) { stop = 0; }
     if (step === void 0) { step = 1; }

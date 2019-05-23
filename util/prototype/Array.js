@@ -12,16 +12,16 @@ Array.prototype._count = function (n) {
 };
 Array.prototype._uniq = function () {
     var _this = this;
-    var l = Array.from(new Set(this));
+    var a = Array.from(new Set(this));
     this._clear();
-    l.forEach(function (v, i) { return (_this[i] = v); });
+    a.forEach(function (v, i) { return (_this[i] = v); });
     return this;
 };
 Array.prototype._overlap = function () {
     var _this = this;
-    var l = this.filter(function (n, i, a) { return a.indexOf(n) === i && i !== a.lastIndexOf(n); });
+    var a = this.filter(function (v, i, a) { return a.indexOf(v) === i && i !== a.lastIndexOf(v); });
     this._clear();
-    l.forEach(function (v, i) { return (_this[i] = v); });
+    a.forEach(function (v, i) { return (_this[i] = v); });
     return this;
 };
 Array.prototype._first = function (n) {
@@ -53,7 +53,7 @@ Array.prototype._drop = function (n) {
     return a.splice(n);
 };
 Array.prototype._sample = function () {
-    return this[(Math.random() * this.length) | 0];
+    return this[Function_1.randint(this.length)];
 };
 Array.prototype._asc = function (s) {
     if (s === void 0) { s = ''; }
@@ -79,8 +79,28 @@ Array.prototype._rotate = function (n) {
     this.unshift.apply(this, this.splice(n));
     return this;
 };
+Array.prototype._shuffle = function () {
+    var _this = this;
+    var a = this.concat();
+    Function_1.range(this.length).forEach(function (i) { return (_this[i] = a._remove(Function_1.randint(a.length))); });
+    return this;
+};
+Array.prototype._flat = function () {
+    var _this = this;
+    var a = this.toString()
+        .split(',')
+        .map(function (n) { return Number(n); });
+    this._clear();
+    a.forEach(function (v, i) { return (_this[i] = v); });
+    return this;
+};
 Array.prototype._clear = function () {
     this.length = 0;
+    return this;
+};
+Array.prototype._delete = function (s) {
+    var n = this.map(function (v, i) { return (v == s ? i : -1); }).filter(function (i) { return i !== -1; });
+    this._remove.apply(this, n);
     return this;
 };
 Array.prototype._remove = function () {
@@ -89,10 +109,14 @@ Array.prototype._remove = function () {
     for (var _i = 0; _i < arguments.length; _i++) {
         n[_i] = arguments[_i];
     }
-    if (n.length === 1) {
+    if (n.length === 0) {
+        return undefined;
+    }
+    else if (n.length === 1) {
         return this.splice(n._first(), 1)._first();
     }
     else {
+        n._desc();
         return n.map(function (v) { return _this.splice(v, 1)._first(); });
     }
 };

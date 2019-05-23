@@ -1,4 +1,4 @@
-import {range} from '../Function'
+import {range, randint} from '../Function'
 
 declare global {
   interface Array<T> {
@@ -15,6 +15,9 @@ declare global {
     _asc(s?: any): any[]
     _desc(s?: any): any[]
     _rotate(n?: number): any[]
+    _shuffle(): any[]
+    _flat(): any[]
+    // _copy(): any[]
     _clear(): any[]
     _delete(s: any): any[]
     _remove(...n: number[]): any | any[]
@@ -34,16 +37,16 @@ Array.prototype._count = function(n) {
 }
 
 Array.prototype._uniq = function(): any[] {
-  const l = Array.from(new Set(this))
+  const a = Array.from(new Set(this))
   this._clear()
-  l.forEach((v, i) => (this[i] = v))
+  a.forEach((v, i) => (this[i] = v))
   return this
 }
 
 Array.prototype._overlap = function(): any[] {
-  const l = this.filter((v, i, a) => a.indexOf(v) === i && i !== a.lastIndexOf(v))
+  const a = this.filter((v, i, a) => a.indexOf(v) === i && i !== a.lastIndexOf(v))
   this._clear()
-  l.forEach((v, i) => (this[i] = v))
+  a.forEach((v, i) => (this[i] = v))
   return this
 }
 
@@ -76,7 +79,7 @@ Array.prototype._drop = function(n: number): any[] {
 }
 
 Array.prototype._sample = function(): any[] {
-  return this[(Math.random() * this.length) | 0]
+  return this[randint(this.length)]
 }
 
 Array.prototype._asc = function(s = ''): any[] {
@@ -100,6 +103,27 @@ Array.prototype._rotate = function(n = 1): any[] {
   this.unshift(...this.splice(n))
   return this
 }
+
+Array.prototype._shuffle = function(): any[] {
+  const a = this.concat()
+  range(this.length).forEach(i => (this[i] = a._remove(randint(a.length))))
+  return this
+}
+
+Array.prototype._flat = function(): any[] {
+  const a = this.toString()
+    .split(',')
+    .map(n => Number(n))
+  this._clear()
+  a.forEach((v, i) => (this[i] = v))
+  return this
+}
+
+// Array.prototype._copy = function(a: any[]): any[] {
+//   this._clear()
+//   a.forEach((v, i) => (this[i] = v))
+//   return this
+// }
 
 Array.prototype._clear = function(): any[] {
   this.length = 0

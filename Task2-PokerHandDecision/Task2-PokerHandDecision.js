@@ -5,6 +5,7 @@ var HandRule_1 = require("./HandRule");
 var HandIO_1 = require("./HandIO");
 var VictoryRule_1 = require("./VictoryRule");
 // const n = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+console.log([1, [2, [3]]]._flat());
 console.log('Task2-PokerHandDecision');
 console.log('A card can be designated in "ABCDE" from the right.');
 var first_hand = [HandIO_1.initialHand(), HandIO_1.initialHand()];

@@ -1,6 +1,8 @@
 import * as readlineSync from 'readline-sync'
 
 export const input = (s = ''): string => readlineSync.question(s)
+export const rand = (n: number): number => Math.random() * n
+export const randint = (n: number): number => Number(rand(n))
 export const range = function(start: number, stop = 0, step = 1): number[] {
   switch (arguments.length) {
     case 1:
