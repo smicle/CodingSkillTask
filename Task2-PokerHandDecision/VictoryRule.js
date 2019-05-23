@@ -2,30 +2,44 @@
 exports.__esModule = true;
 require("../util/Prototype");
 var PokerType_1 = require("./PokerType");
-var isSuit = function (c) { return c.map(function (v) { return -PokerType_1.getHandSuit(v).sort(function (a, b) { return a - b; })[0]; }); };
+var isSuit = function (c) {
+    // prettier-ignore
+    return c.map(function (v) {
+        return -PokerType_1.getHandSuit(v)
+            .sort(function (a, b) { return a - b; })
+            ._first();
+    });
+};
 var getHandNumber = function (c) {
     return c
         .map(function (n) { return n.number; })
         .map(function (n) { return (n === 1 ? 14 : n); })
         .sort(function (a, b) { return b - a; });
 };
-var isNCard = function (c) { return c.map(function (v) { return getHandNumber(v)._overlap()[0]; }); };
+var isNCard = function (c) {
+    return c.map(function (v) {
+        return getHandNumber(v)
+            ._overlap()
+            ._first();
+    });
+};
 var isFullHouse = function (c) {
+    // prettier-ignore
     return c.map(function (v) {
         var n = getHandNumber(v);
-        // prettier-ignore
-        return n.includes(0)
-            ? n._overlap()[0]
-            : n._count(n[0]) === 3 ? n[0] : n.slice(-1)[0];
+        var f = n._first(), l = n._last();
+        return (n.includes(0)
+            ? n._overlap()._first()
+            : n._count(f) === 3 ? f : l);
     });
 };
 var isOnePair = function (c) {
     return c.map(function (v) {
         var n = getHandNumber(v);
-        return n.includes(0) ? n[0] : n._overlap()[0];
+        return n.includes(0) ? n._first() : n._overlap()._first();
     });
 };
-var isBigNumber = function (c) { return c.map(function (v) { return getHandNumber(v)[0]; }); };
+var isBigNumber = function (c) { return c.map(function (v) { return getHandNumber(v)._first(); }); };
 var fightNumber = function (c) {
     return c[0] > c[1] ? '1p WIN!!!' : c[0] < c[1] ? '2p WIN!!!' : 'Draw';
 };

@@ -4,7 +4,7 @@ declare global {
   interface Array<T> {
     _empty(): boolean
     _equal(a: any[]): boolean
-    _count(n: number): number
+    _count(n: any): number
     _uniq(): any[]
     _overlap(): any[]
     _first(n?: number): any | any[]
@@ -12,10 +12,11 @@ declare global {
     _take(n: number): any[]
     _drop(n: number): any[]
     _sample(): any[]
-    _asc(s?: string): any[]
-    _desc(s?: string): any[]
+    _asc(s?: any): any[]
+    _desc(s?: any): any[]
     _rotate(n?: number): any[]
     _clear(): any[]
+    _delete(s: any): any[]
     _remove(...n: number[]): any | any[]
   }
 }
@@ -40,7 +41,7 @@ Array.prototype._uniq = function(): any[] {
 }
 
 Array.prototype._overlap = function(): any[] {
-  const l = this.filter((n, i, a) => a.indexOf(n) === i && i !== a.lastIndexOf(n))
+  const l = this.filter((v, i, a) => a.indexOf(v) === i && i !== a.lastIndexOf(v))
   this._clear()
   l.forEach((v, i) => (this[i] = v))
   return this
@@ -105,10 +106,19 @@ Array.prototype._clear = function(): any[] {
   return this
 }
 
+Array.prototype._delete = function(s): any[] {
+  const n = this.map((v, i) => (v == s ? i : -1)).filter(i => i !== -1)
+  this._remove(...n)
+  return this
+}
+
 Array.prototype._remove = function(...n: number[]): any | any[] {
-  if (n.length === 1) {
-    return this.splice(n[0], 1)._first()
+  if (n.length === 0) {
+    return undefined
+  } else if (n.length === 1) {
+    return this.splice(n._first(), 1)._first()
   } else {
+    n._desc()
     return n.map(v => this.splice(v, 1)._first())
   }
 }

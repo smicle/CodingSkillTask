@@ -40,10 +40,44 @@ Array.prototype._last = function (n) {
     if (n === 1) {
         return a.pop();
     }
-    return a
-        .reverse()
-        ._first(n)
-        .reverse();
+    // prettier-ignore
+    return a.reverse()._first(n).reverse();
+};
+Array.prototype._take = function (n) {
+    var a = this.concat();
+    a.splice(n);
+    return a;
+};
+Array.prototype._drop = function (n) {
+    var a = this.concat();
+    return a.splice(n);
+};
+Array.prototype._sample = function () {
+    return this[(Math.random() * this.length) | 0];
+};
+Array.prototype._asc = function (s) {
+    if (s === void 0) { s = ''; }
+    if (s === '') {
+        return this.sort(function (a, b) { return a - b; });
+    }
+    else {
+        return this.sort(function (a, b) { return a[s] - b[s]; });
+    }
+};
+Array.prototype._desc = function (s) {
+    if (s === void 0) { s = ''; }
+    if (s === '') {
+        return this.sort(function (a, b) { return b - a; });
+    }
+    else {
+        return this.sort(function (a, b) { return b[s] - a[s]; });
+    }
+};
+Array.prototype._rotate = function (n) {
+    if (n === void 0) { n = 1; }
+    n %= this.length;
+    this.unshift.apply(this, this.splice(n));
+    return this;
 };
 Array.prototype._clear = function () {
     this.length = 0;
@@ -56,7 +90,7 @@ Array.prototype._remove = function () {
         n[_i] = arguments[_i];
     }
     if (n.length === 1) {
-        return this.splice(n[0], 1)._first();
+        return this.splice(n._first(), 1)._first();
     }
     else {
         return n.map(function (v) { return _this.splice(v, 1)._first(); });
