@@ -92,8 +92,7 @@ Array.prototype._take = function(n: number): any[] {
   a.splice(n)
   return a
 }
-
-rray.prototype._take$ = function(n: number): any[] {
+Array.prototype._take$ = function(n: number): any[] {
   this.splice(n)
   return this
 }
