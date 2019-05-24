@@ -12,6 +12,6 @@ Number.prototype._abs = function () {
 Number.prototype._floor = function () {
     return Math.floor(this._num());
 };
-Number.prototype._negativeToZero = function () {
+Number.prototype._minusOnlyZero = function () {
     return this._num() < 0 ? 0 : this._num();
 };

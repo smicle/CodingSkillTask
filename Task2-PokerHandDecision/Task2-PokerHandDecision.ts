@@ -1,11 +1,13 @@
 import '../util/Prototype'
-// import * as smicle from '../util/Function'
+import * as smicle from '../util/Function'
 import {HandCard, PokerHand} from './PokerType'
 import {judgeHand} from './HandRule'
 import {initialHand, displayHand, changeHand} from './HandIO'
 import {victoryResult} from './VictoryRule'
 
 // const n = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+console.log(smicle.sum([1, 3, [2, 1], 2]))
+console.log(smicle.mean([1, 3, [2, 1], 2]))
 
 console.log('Task2-PokerHandDecision')
 console.log('A card can be designated in "ABCDE" from the right.')

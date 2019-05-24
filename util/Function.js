@@ -1,6 +1,5 @@
 "use strict";
 exports.__esModule = true;
-// import './Prototype'
 var readlineSync = require("readline-sync");
 exports.input = function (s) {
     if (s === void 0) { s = ''; }
@@ -16,15 +15,15 @@ exports.range = function (start, stop, step) {
             return Array.from(Array(start), function (_, i) { return i; });
         case 2:
             var n = -start + stop;
-            return Array.from(Array(n._negativeToZero()), function (_) { return start++; });
+            return Array.from(Array(n._minusOnlyZero()), function (_) { return start++; });
         case 3:
             if (step > 0) {
                 var n_1 = -start + stop;
-                return Array.from(Array(n_1._negativeToZero()), function (_) { return start++; }).filter(function (_, i) { return i % step == 0; });
+                return Array.from(Array(n_1._minusOnlyZero()), function (_) { return start++; }).filter(function (_, i) { return i % step == 0; });
             }
             else if (step < 0) {
                 var n_2 = start + -stop;
-                return Array.from(Array(n_2._negativeToZero()), function (_) { return start--; }).filter(function (_, i) { return i % step == 0; });
+                return Array.from(Array(n_2._minusOnlyZero()), function (_) { return start--; }).filter(function (_, i) { return i % step == 0; });
             }
             else {
                 console.error(Error('range() arg 3 must not be zero'));
@@ -46,4 +45,19 @@ exports.min = function () {
         n[_i] = arguments[_i];
     }
     return Math.min.apply(Math, n._flat());
+};
+exports.sum = function () {
+    var n = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        n[_i] = arguments[_i];
+    }
+    return n._flat().reduce(function (a, c) { return a + c; });
+};
+exports.mean = function () {
+    var n = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        n[_i] = arguments[_i];
+    }
+    n._flat$();
+    return exports.sum(n) / n.length;
 };

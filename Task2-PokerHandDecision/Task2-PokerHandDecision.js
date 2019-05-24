@@ -1,10 +1,13 @@
 "use strict";
 exports.__esModule = true;
 require("../util/Prototype");
+var smicle = require("../util/Function");
 var HandRule_1 = require("./HandRule");
 var HandIO_1 = require("./HandIO");
 var VictoryRule_1 = require("./VictoryRule");
 // const n = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+console.log(smicle.sum([1, 3, [2, 1], 2]));
+console.log(smicle.mean([1, 3, [2, 1], 2]));
 console.log('Task2-PokerHandDecision');
 console.log('A card can be designated in "ABCDE" from the right.');
 var first_hand = [HandIO_1.initialHand(), HandIO_1.initialHand()];
