@@ -1,4 +1,3 @@
-import '../util/Prototype'
 import {HandCard, PokerHand, getHandSuit} from './PokerType'
 
 const isSuit = (c: HandCard[][]): number[] =>

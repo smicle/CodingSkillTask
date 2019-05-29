@@ -1,5 +1,3 @@
-import '../util/Prototype'
-
 export type HandCard = {
   suit: number
   number: number

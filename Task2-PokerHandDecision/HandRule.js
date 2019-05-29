@@ -1,6 +1,5 @@
 "use strict";
 exports.__esModule = true;
-require("../util/Prototype");
 var PokerType_1 = require("./PokerType");
 var HandIO_1 = require("./HandIO");
 var numberDifference = function (c) {

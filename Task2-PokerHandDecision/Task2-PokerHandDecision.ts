@@ -1,4 +1,3 @@
-import '../util/Prototype'
 import {HandCard, PokerHand} from './PokerType'
 import {judgeHand} from './HandRule'
 import {initialHand, displayHand, changeHand} from './HandIO'

@@ -1,6 +1,5 @@
 "use strict";
 exports.__esModule = true;
-require("../util/Prototype");
 exports.getHandSuit = function (c) { return c.map(function (n) { return n.suit; }); };
 exports.getHandNumber = function (c) { return c.map(function (n) { return n.number; }); };
 exports.hand_type = [

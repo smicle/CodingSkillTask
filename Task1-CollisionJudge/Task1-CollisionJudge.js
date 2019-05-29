@@ -1,19 +1,21 @@
 "use strict";
 exports.__esModule = true;
-var util = require("../util/util");
+// import '../util/Prototype'
+// import * as smicle from '../util/Function'
+var util = require("smicle-util");
 console.log('Task1-Collisionis');
 // prettier-ignore
-var s = util.input().split(' ').map(function (n) { return Number(n); });
+var s = util.input().split(' ').map(Number);
 var self = {
     x: s[0],
     y: s[1],
     width: s[2],
     height: s[3]
 };
-var n = Number(util.input());
+var n = util.input()._num();
 // prettier-ignore
 var enemy = util.range(n)
-    .map(function (_) { return util.input().split(' ').map(function (n) { return Number(n); }); })
+    .map(function (_) { return util.input().split(' ').map(Number); })
     .map(function (e) { return ({
     x: e[0],
     y: e[1],

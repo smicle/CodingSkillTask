@@ -1,9 +1,8 @@
-import '../util/Prototype'
-import * as smicle from '../util/Function'
+import * as util from 'smicle-util'
 import {HandCard, DisplayCard} from './PokerType'
 
 export const createDeck = (): HandCard[] =>
-  smicle.range(52).map(i => ({
+  util.range(52).map(i => ({
     suit: (i / 13) | 0,
     number: (i % 13) + 1,
   }))
@@ -34,13 +33,13 @@ const convertCard = (c: HandCard[]): DisplayCard[] =>
   }))
 
 const cardDraw = (): HandCard => {
-  const n = smicle.randInt(deck.length)
+  const n = util.randInt(deck.length)
   const c: HandCard = deck[n]
   deck = deck.filter(v => v !== deck[n])
   return c
 }
 
-export const initialHand = (): HandCard[] => smicle.range(5).map(cardDraw)
+export const initialHand = (): HandCard[] => util.range(5).map(cardDraw)
 
 export const displayHand = (c: HandCard[]): string =>
   convertCard(c)
@@ -49,7 +48,7 @@ export const displayHand = (c: HandCard[]): string =>
 
 export const changeHand = (c: HandCard[]): HandCard[] => {
   // prettier-ignore
-  const n: number[] = smicle.input('Change card ')
+  const n: number[] = util.input('Change card ')
     .toUpperCase()
     .split('')
     .map(v => Number(convertABCDE(v)))

@@ -1,9 +1,8 @@
 "use strict";
 exports.__esModule = true;
-require("../util/Prototype");
-var smicle = require("../util/Function");
+var util = require("smicle-util");
 exports.createDeck = function () {
-    return smicle.range(52).map(function (i) { return ({
+    return util.range(52).map(function (i) { return ({
         suit: (i / 13) | 0,
         number: (i % 13) + 1
     }); });
@@ -33,12 +32,12 @@ var convertCard = function (c) {
     }); });
 };
 var cardDraw = function () {
-    var n = smicle.randInt(deck.length);
+    var n = util.randInt(deck.length);
     var c = deck[n];
     deck = deck.filter(function (v) { return v !== deck[n]; });
     return c;
 };
-exports.initialHand = function () { return smicle.range(5).map(cardDraw); };
+exports.initialHand = function () { return util.range(5).map(cardDraw); };
 exports.displayHand = function (c) {
     return convertCard(c)
         .map(function (c) { return "" + c.suit + c.number; })
@@ -46,7 +45,7 @@ exports.displayHand = function (c) {
 };
 exports.changeHand = function (c) {
     // prettier-ignore
-    var n = smicle.input('Change card ')
+    var n = util.input('Change card ')
         .toUpperCase()
         .split('')
         .map(function (v) { return Number(convertABCDE(v)); });
