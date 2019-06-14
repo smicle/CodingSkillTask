@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es3",
+    "module": "es2015",
+    "lib": ["dom", "es2015"],
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "types": ["node"],
+    "rootDir": "./src",
+    "outDir": "./build"
+  }
+}
+

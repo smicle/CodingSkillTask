@@ -1,0 +1,3 @@
+<div>
+  GameArea, {userName}
+</div>

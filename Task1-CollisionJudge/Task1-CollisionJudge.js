@@ -1,7 +1,5 @@
 "use strict";
 exports.__esModule = true;
-// import '../util/Prototype'
-// import * as smicle from '../util/Function'
 var util = require("smicle-util");
 console.log('Task1-Collisionis');
 // prettier-ignore
