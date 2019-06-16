@@ -2,7 +2,8 @@
 
 # CodingSkillTask
 
-使用言語:TypeScript
+使用言語:[TypeScript](https://www.typescriptlang.org/)
+ライブラリ:[SVELTE](https://svelte.dev/)
 
 ## Task1-CollisionJudge
   当たり判定
