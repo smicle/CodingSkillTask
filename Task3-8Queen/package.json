@@ -37,7 +37,8 @@
     "upgrade": "npm outdated && npm update",
     "dev": "cross-env PORT=8080 gulp",
     "start": "cross-env NODE_ENV=production gulp && node build/main.js",
-    "storybook": "start-storybook --ci"
+    "storybook": "start-storybook --ci",
+    "build": "webpack"
   },
   "dependencies": {
     "core-js": "^3.1.3",

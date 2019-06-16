@@ -1,14 +1,11 @@
-<div>
-  GameArea, {userName}
-</div>
+{#each field as i}
+  <div id="t-{i}" class="trout"></div>
+  {#if i % 8 == 0}<br>{/if}
+{/each}
 
 
 <script>
-export var userName = 'smicle';
+import 'smicle-util';
+import * as _util from 'smicle-util';
+var field = _util.range(1, 65);
 </script>
-
-
-<style>
-div {
-  border: solid 1px black; }
-</style>
