@@ -1,5 +1,6 @@
-<h1>
-  8Queen
-  <GameArea></GameArea>
-  {test}
-</h1>
+<div class="centered">
+  <main>
+    <h1 class="title">8Queen</h1>
+    <GameArea></GameArea>
+  </main>
+</div>
