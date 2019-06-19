@@ -28,3 +28,11 @@ html {
   left: -50%;
   float: left;
 }
+
+.trout[flag='1'] {
+  background-color: #33d5ac;
+}
+
+.trout[flag='2'] {
+  background-color: #274079;
+}
