@@ -1,5 +1,7 @@
 import GameArea from './components/GameArea/GameArea.svelte'
 GameArea
 
-import {state} from './components/Value'
-console.log(state.flag)
+// let childCnt = 0
+// function updateChild(event) {
+//   childCnt = event.detail.cnt
+// }
