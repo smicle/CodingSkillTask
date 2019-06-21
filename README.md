@@ -11,5 +11,5 @@
 ## Task2-PokerHandDecision
   ポーカーの役判定
 
-## Task3-8Queen
+## [Task3-8Queen](https://github.com/smicle/Task3-8Queen)
   8Queenゲームの作成
