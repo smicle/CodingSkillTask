@@ -1,3 +1,4 @@
 export var state = {
-    flag: 0
+    flag: 0,
+    count: 0
 };
